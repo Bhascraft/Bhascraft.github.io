@@ -4,6 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Home — Bhascraft Docs</title>
+<script>
+  if (!sessionStorage.getItem('docVisited')) {
+    document.documentElement.classList.add('first-load');
+    sessionStorage.setItem('docVisited', '1');
+  }
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Press+Start+2P&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
@@ -15,28 +21,33 @@
     <img src="Bhascraft.svg" alt="Bhascraft Docs" class="brand-logo">
   </a>
   <div class="nav-section-label">Navigation</div>
-  <nav class="sidebar-nav">
-    <a href="index.html" class="active">Home</a>
-<a href="survival.html">Survival</a>
-<a href="creative.html">Creative</a>
-<a href="skyblock.html">Skyblock</a>
-<a href="pvp.html">PVP</a>
-<a href="commands.html">Commands</a>
-<a href="technical-info.html">Technical Info</a>
+  <nav class="sidebar-nav" id="sidebarNav">
+    <a href="#home"      data-page="home">Home</a>
+    <a href="#survival"  data-page="survival">Survival</a>
+    <a href="#creative"  data-page="creative">Creative</a>
+    <a href="#skyblock"  data-page="skyblock">Skyblock</a>
+    <a href="#pvp"       data-page="pvp">PVP</a>
+    <a href="#commands"  data-page="commands">Commands</a>
+    <a href="#technical" data-page="technical">Technical Info</a>
   </nav>
 </aside>
 <div class="overlay" id="overlay"></div>
-<main class="main">
-  <div class="content">
+<main class="main" id="mainContent">
+
+<!-- ══════════════════════════════════ HOME ══════════════════════════════════ -->
+<section class="page" data-page="home">
+<div class="content">
 <h1>Bhascraft Docs</h1>
 <h2>Welcome</h2>
 <p>Welcome to <strong>Bhascraft</strong>, a multi-gamemode Minecraft server! Upon joining the server, you will spawn in the <strong>Hub</strong> (lobby).</p>
 <figure><img src="images/image_1781008239149_0.png" alt="Hub screenshot"></figure>
 <p>From the Hub you can access all the gamemodes:</p>
-<div class="gm-grid"><a href="survival.html" class="gm-card"><span class="gm-icon">⚔️</span><div><strong>Survival</strong><span>PvP, griefing, and open-world survival.</span></div></a>
-<a href="creative.html" class="gm-card"><span class="gm-icon">🎨</span><div><strong>Creative</strong><span>Plot-based creative building with WorldEdit.</span></div></a>
-<a href="skyblock.html" class="gm-card"><span class="gm-icon">🏝️</span><div><strong>Skyblock</strong><span>Island survival with a team system.</span></div></a>
-<a href="pvp.html" class="gm-card"><span class="gm-icon">🗡️</span><div><strong>PVP</strong><span>FFA kit-based PVP arena.</span></div></a></div>
+<div class="gm-grid">
+<a href="#survival" data-page="survival" class="gm-card"><span class="gm-icon">⚔️</span><div><strong>Survival</strong><span>PvP, griefing, and open-world survival.</span></div></a>
+<a href="#creative" data-page="creative" class="gm-card"><span class="gm-icon">🎨</span><div><strong>Creative</strong><span>Plot-based creative building with WorldEdit.</span></div></a>
+<a href="#skyblock" data-page="skyblock" class="gm-card"><span class="gm-icon">🏝️</span><div><strong>Skyblock</strong><span>Island survival with a team system.</span></div></a>
+<a href="#pvp"      data-page="pvp"      class="gm-card"><span class="gm-icon">🗡️</span><div><strong>PVP</strong><span>FFA kit-based PVP arena.</span></div></a>
+</div>
 <hr class="section-divider">
 <h2>Mechanics</h2>
 <h3>AFK System</h3>
@@ -45,15 +56,17 @@
 <hr class="section-divider">
 <h2>Ranks</h2>
 <p>Bhascraft has <strong>5 ranks</strong>. Here is a table showing the prefixes, rewards, and playtime requirements:</p>
-<div class="table-wrap"><table><thead><tr><th>Rank</th><th>Unlocked Commands</th><th>Playtime Required</th></tr></thead><tbody><tr><td><span class="rank rank-beginner">[BEGINNER]</span></td><td>/warp, /playtime, etc. (see Commands page)</td><td>0 hours</td></tr>
+<div class="table-wrap"><table><thead><tr><th>Rank</th><th>Unlocked Commands</th><th>Playtime Required</th></tr></thead><tbody>
+<tr><td><span class="rank rank-beginner">[BEGINNER]</span></td><td>/warp, /playtime, etc. (see Commands page)</td><td>0 hours</td></tr>
 <tr><td><span class="rank rank-master">[MASTER]</span></td><td>/msg (private message)</td><td>25 hours</td></tr>
 <tr><td><span class="rank rank-veteran">[VETERAN]</span></td><td>/trash (opens a chest UI that erases items)</td><td>50 hours</td></tr>
 <tr><td><span class="rank rank-champion">[CHAMPION]</span></td><td>/skull (gives you a skull of a specified account)</td><td>150 hours</td></tr>
-<tr><td><span class="rank rank-legend">-=LEGEND=-</span></td><td>/pp (particles), /nick (custom nickname)</td><td>300 hours</td></tr></tbody></table></div>
+<tr><td><span class="rank rank-legend">-=LEGEND=-</span></td><td>/pp (particles), /nick (custom nickname)</td><td>300 hours</td></tr>
+</tbody></table></div>
 <h3>MiniMessage Formatting</h3>
 <p><strong>MiniMessage</strong> is a way of formatting text on a Paper Minecraft server. It works by adding tags before and after your text to change its colour and effects.</p>
 <p>The tags look like this: &lt;blue&gt;, &lt;rainbow&gt;, &lt;bold&gt; and &lt;#0000FF&gt;</p>
-<p>It can be used in most places where you can enter text (like <strong>/nick</strong>), with the exception of normal chat. More info can be found on the <a href="https://docs.papermc.io/adventure/minimessage/">Paper MC Docs</a>.</p>
+<p>It can be used in most places where you can enter text (like <strong>/nick</strong>), with the exception of normal chat. More info can be found on the <a href="https://docs.papermc.io/adventure/minimessage/" target="_blank" rel="noopener">Paper MC Docs</a>.</p>
 <hr class="section-divider">
 <h2>Bedrock Edition</h2>
 <p>The server has the <strong>Geyser MC</strong> plugin, which allows players from Bedrock Edition to connect to Bhascraft. Since Bedrock is available on consoles, tablets/iPads, and PCs, the connection method varies by platform.</p>
@@ -69,7 +82,6 @@
 <figure><img src="images/badrock-serevr-dialog_1781014026913_0.png" alt="Bedrock server connection dialog"></figure>
 <h3>Console</h3>
 <p>Joining from a console is more involved, because consoles don't have a direct "add server" option. You need to use a third-party tool called <strong>BedrockConnect</strong> to redirect your console to Bhascraft.</p>
-
 <div class="callout callout-info">
   <strong>Nintendo Switch</strong>
   <ol>
@@ -103,12 +115,416 @@
 <p>If the written instructions didn't work, try following this video guide:</p>
 <a href="https://youtu.be/AoLPhKW2Xis" class="yt-btn" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1c.5-1.9.5-5.8.5-5.8s0-3.9-.5-5.8zM9.8 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>Watch on YouTube</a>
 <p>In the future, I plan to add a tool that lets you friend a bot account so the server appears as a joinable world — unfortunately this won't work for Nintendo Switch. For now, here are the relevant links:</p>
-<p><a href="https://github.com/MCXboxBroadcast/Broadcaster">MCXboxBroadcast/Broadcaster</a> — <a href="https://github.com/Pugmatt/BedrockConnect">Pugmatt/BedrockConnect</a></p>
+<p><a href="https://github.com/MCXboxBroadcast/Broadcaster" target="_blank" rel="noopener">MCXboxBroadcast/Broadcaster</a> — <a href="https://github.com/Pugmatt/BedrockConnect" target="_blank" rel="noopener">Pugmatt/BedrockConnect</a></p>
 <hr class="section-divider">
 <h2>Voice Chat</h2>
 <p>Bhascraft has <strong>Simple Voice Chat</strong>, which allows players with the client-side mod to use proximity and group voice chat. Simply install the mod, and it will automatically connect to the server's voice chat plugin.</p>
-<p>Mod: <a href="https://modrinth.com/mod/simple-voice-chat">Simple Voice Chat on Modrinth</a><br>Plugin: <a href="https://modrinth.com/plugin/simple-voice-chat">Simple Voice Chat Plugin on Modrinth</a></p>
-  </div>
+<p>Mod: <a href="https://modrinth.com/mod/simple-voice-chat" target="_blank" rel="noopener">Simple Voice Chat on Modrinth</a><br>Plugin: <a href="https://modrinth.com/plugin/simple-voice-chat" target="_blank" rel="noopener">Simple Voice Chat Plugin on Modrinth</a></p>
+</div>
+</section>
+
+<!-- ══════════════════════════════ SURVIVAL ═══════════════════════════════ -->
+<section class="page" data-page="survival">
+<div class="content">
+<h1>Survival</h1>
+<p><strong>Survival</strong>, the main gamemode, is a (mostly) rules-free open world. After entering the <em>Survival Entrance</em> portal in the Hub, you will arrive at spawn.</p>
+<p>The spawn area is a 3×3 un-removable platform stretching down to bedrock. There is also a 3×3×3 protected cube around the spawn location where you can't break or place blocks, to prevent instant trapping.</p>
+<p>The map has a world border radius of <strong>6,000 blocks</strong>. Here is a map of some of the generated terrain:</p>
+<figure><img src="images/2026-06-08_12-32-20_x-6112_z-6080-resized-to-5.jpeg" alt="Survival world map"></figure>
+<p>The world contains several chunk errors, mainly around the spawn area. These were caused by the way the world was originally set up. If a reset ever happens, these will be fixed.</p>
+<h2>Rules</h2>
+<div class="table-wrap"><table><thead><tr><th>Rule</th><th>Status</th></tr></thead><tbody>
+<tr><td>Griefing, stealing, and PVP</td><td><span class="allowed">✔ Allowed</span></td></tr>
+<tr><td>X-ray (anti-X-ray is active, reducing its effectiveness)</td><td><span class="allowed">✔ Allowed</span></td></tr>
+<tr><td>Hack clients, mods, and AFK spoofers</td><td><span class="disallowed">✘ Not Allowed</span></td></tr>
+</tbody></table></div>
+<h2>Commands</h2>
+<p>Here are some survival-related commands (all of them are also listed on the Commands page):</p>
+<ul>
+  <li><code>/warp Survival</code> — teleports you to survival (same as entering the portal)</li>
+  <li><code>/msg</code> — private messaging <em>(Master rank)</em></li>
+  <li><code>/trash</code> — opens a disposal chest to destroy items <em>(Veteran rank)</em></li>
+</ul>
+<h2>Extra Info</h2>
+<ul>
+  <li>All normal vanilla features are functional.</li>
+  <li>Spawn has a bedrock pole pointing west to make trapping harder.</li>
+  <li>The terrain map above will be kept updated.</li>
+  <li>There is no economy system.</li>
+  <li>Survival has a warp — use <code>/warp Survival</code> to get there instantly.</li>
+</ul>
+</div>
+</section>
+
+<!-- ══════════════════════════════ CREATIVE ═══════════════════════════════ -->
+<section class="page" data-page="creative">
+<div class="content">
+<h1>Creative</h1>
+<h2>Plots</h2>
+<p>The creative world is managed using <strong>Plots</strong>. Each player gets a <strong>100 × 100</strong> plot as their own private building area. They can trust other players, set plot settings, and use creative mode freely within it.</p>
+<p>Other players can fly around and view plots, but cannot make changes unless trusted by the plot owner or allowed by a plot flag.</p>
+<p>The plot world is laid out in a grid:</p>
+<figure><img src="images/image_1781432821350_0.png" alt="Plot world grid"></figure>
+<p>A <strong>claimed</strong> plot has a red border; an <strong>unclaimed</strong> plot has a green border.</p>
+<p>Currently each player can only own one plot, but this may be increased in the future.</p>
+<p>When you enter Creative for the first time you will spawn in a small lobby — run <strong>/plot auto</strong> to claim your first plot:</p>
+<figure><img src="images/image_1781433974020_0.png" alt="Creative lobby"></figure>
+<p>This lobby is located at plot 0,0. You can always return to it with <code>/warp Creative</code> while in the creative world.</p>
+<h2>Commands</h2>
+<div class="callout callout-tip"><span class="callout-label">💡 Tip</span><span>You can use <code>/p</code> instead of <code>/plot</code> for any of these commands.</span></div>
+<h3>Claiming & Managing Plots</h3>
+<div class="cmd-list">
+<div class="cmd"><div class="cmd-key"><code>/plot auto</code></div><div class="cmd-desc">Automatically finds and claims the nearest available empty plot for you.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/plot claim</code></div><div class="cmd-desc">Claims the exact plot you are currently standing on (if it isn't already owned).</div></div>
+<div class="cmd"><div class="cmd-key"><code>/plot delete</code></div><div class="cmd-desc">Deletes your plot and unclaims it entirely. (Cannot be undone.)</div></div>
+<div class="cmd"><div class="cmd-key"><code>/plot clear</code></div><div class="cmd-desc">Clears all blocks on your plot, resetting it to its original flat state. (Cannot be undone.)</div></div>
+<div class="cmd"><div class="cmd-key"><code>/plot list mine</code></div><div class="cmd-desc">Lists all the plots you currently own.</div></div>
+</div>
+<h3>Teleportation & Navigation</h3>
+<div class="cmd-list">
+<div class="cmd"><div class="cmd-key"><code>/plot home</code></div><div class="cmd-desc">Teleports you straight to your plot.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/plot h [number]</code></div><div class="cmd-desc">If you own multiple plots, use a number (e.g., /plot home 2) to visit them.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/plot visit [player]</code></div><div class="cmd-desc">Teleports you to another player's plot to check out their builds.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/plot middle</code></div><div class="cmd-desc">Teleports you to the exact centre of the plot you are currently standing on.</div></div>
+</div>
+<h3>Sharing & Security</h3>
+<div class="cmd-list">
+<div class="cmd"><div class="cmd-key"><code>/plot add [player]</code></div><div class="cmd-desc">Allows a player to build on your plot, but only while you are online.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/plot trust [player]</code></div><div class="cmd-desc">Gives a player permanent permission to build on your plot, even when you are offline.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/plot remove [player]</code></div><div class="cmd-desc">Revokes a player's building access (works for both added and trusted players).</div></div>
+<div class="cmd"><div class="cmd-key"><code>/plot deny [player]</code></div><div class="cmd-desc">Bans a player from entering your plot. If they are already on it, they will be kicked.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/plot undeny [player]</code></div><div class="cmd-desc">Lifts a plot ban, allowing the player to visit again.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/plot kick [player]</code></div><div class="cmd-desc">Immediately removes a player from your plot area.</div></div>
+</div>
+<h3>Customisation & Other</h3>
+<div class="cmd-list">
+<div class="cmd"><div class="cmd-key"><code>/plot setbiome [biome]</code></div><div class="cmd-desc">Changes the biome of your plot (e.g., /plot setbiome plains).</div></div>
+<div class="cmd"><div class="cmd-key"><code>/plot info</code></div><div class="cmd-desc">Shows detailed information about the plot you are standing on.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/plot chat on/off</code></div><div class="cmd-desc">Toggles a private chat channel for the plot you are standing on.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/plot comment [message]</code></div><div class="cmd-desc">Leaves a public comment on someone else's plot.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/plot inbox</code></div><div class="cmd-desc">Shows feedback and comments left by other players on your plot.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/plot merge</code></div><div class="cmd-desc">Merges your plot with an adjacent plot you own in the direction you are facing.</div></div>
+</div>
+<h2>Plugin</h2>
+<p>The entire plot world is managed by the <strong>PlotSquared</strong> plugin: <a href="https://github.com/IntellectualSites/PlotSquared" target="_blank" rel="noopener">IntellectualSites/PlotSquared</a></p>
+</div>
+</section>
+
+<!-- ══════════════════════════════ SKYBLOCK ═══════════════════════════════ -->
+<section class="page" data-page="skyblock">
+<div class="content">
+<h1>Skyblock</h1>
+<h2>Getting There</h2>
+<p>To get to Skyblock, punch the NPC in the Hub:</p>
+<figure><img src="images/image_1781434482313_0.png" alt="Skyblock NPC in Hub"></figure>
+<p>Or run the command <code>/island</code> (or <code>/is</code>).</p>
+<h2>How It Works</h2>
+<p>Skyblock is the classic skyblock experience — you start on an island of your choice and build outwards, gathering materials as you go.</p>
+<p>When you first start, you will see a chest UI showing the four islands you can choose from:</p>
+<figure><img src="images/image_1781435105028_0.png" alt="Island choice 1"></figure>
+<figure><img src="images/image_1781435138135_0.png" alt="Island choice 2"></figure>
+<figure><img src="images/image_1781435166845_0.png" alt="Island choice 3"></figure>
+<figure><img src="images/image_1781435184881_0.png" alt="Island choice 4"></figure>
+<p>Once your island has been created, you will be teleported to it and can begin!</p>
+<h2>Commands</h2>
+<div class="callout callout-tip"><span class="callout-label">💡 Tip</span><span>You can use <code>/is</code> instead of <code>/island</code> for any of these commands.</span></div>
+<h3>Island Management</h3>
+<div class="cmd-list">
+<div class="cmd"><div class="cmd-key"><code>/island</code></div><div class="cmd-desc">Displays the main island help menu or interface.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/island go</code></div><div class="cmd-desc">Teleports you straight to your island home.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/island sethome [name]</code></div><div class="cmd-desc">Sets your island home teleport point at your current position.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/island homes</code></div><div class="cmd-desc">Lists all island home teleport locations you have set.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/island deletehome [name]</code></div><div class="cmd-desc">Deletes a specific home teleport point.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/island reset</code></div><div class="cmd-desc">Deletes your current island entirely so you can start fresh.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/island info</code></div><div class="cmd-desc">Displays detailed information about your island or another player's island.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/island near</code></div><div class="cmd-desc">Shows the names of neighbouring islands around your location.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/island spawn</code></div><div class="cmd-desc">Teleports you back to the SkyBlock world's spawn point.</div></div>
+</div>
+<h3>Team Management</h3>
+<div class="cmd-list">
+<div class="cmd"><div class="cmd-key"><code>/island team</code></div><div class="cmd-desc">Opens the team management menu.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/island team invite [player]</code></div><div class="cmd-desc">Invites a player to join your island team.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/island team accept</code></div><div class="cmd-desc">Accepts a pending invitation to join an island team.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/island team reject</code></div><div class="cmd-desc">Rejects a pending island team invitation.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/island team leave</code></div><div class="cmd-desc">Leaves your current island team.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/island team kick [player]</code></div><div class="cmd-desc">Removes a member from your island team.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/island team trust [player]</code></div><div class="cmd-desc">Gives a player permanent building access without adding them to the team.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/island team untrust [player]</code></div><div class="cmd-desc">Revokes permanent trusted status from a player.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/island team coop [player]</code></div><div class="cmd-desc">Gives an online player temporary building access to your island.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/island team uncoop [player]</code></div><div class="cmd-desc">Revokes temporary co-op status from a player.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/island team promote [player]</code></div><div class="cmd-desc">Promotes a team member up a rank on your island.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/island team demote [player]</code></div><div class="cmd-desc">Demotes a team member down a rank on your island.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/island team setowner [player]</code></div><div class="cmd-desc">Transfers ownership of the island to another team member.</div></div>
+</div>
+<h3>Social & Security</h3>
+<div class="cmd-list">
+<div class="cmd"><div class="cmd-key"><code>/island ban [player]</code></div><div class="cmd-desc">Bans a player from entering your island.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/island unban [player]</code></div><div class="cmd-desc">Lifts an island ban, allowing the player to visit again.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/island banlist</code></div><div class="cmd-desc">Lists all players currently banned from your island.</div></div>
+</div>
+</div>
+</section>
+
+<!-- ════════════════════════════════ PVP ══════════════════════════════════ -->
+<section class="page" data-page="pvp">
+<div class="content">
+<h1>PVP</h1>
+<h2>Location</h2>
+<p>Enter the Nether-type portal to your left in the Hub to be teleported to the PVP arena. It is FFA-type PVP in a limited area, with items obtained from kits in the safe spawn zone.</p>
+<h2>Arena</h2>
+<p>The arena is approximately <strong>90 × 80 × 103 blocks</strong> (a rough circle).</p>
+<figure><img src="images/image_1781432457851_0.png" alt="PVP arena overview"></figure>
+<p>It has some texture and a small cave on the surface to add interest. Block breaking and placing are currently disabled.</p>
+<p>When you walk out of the safe spawn area into the arena, you will receive a <em>"You Entered The Arena"</em> message. Once inside, the only ways to leave are to warp out with <code>/warp</code> or to die.</p>
+<h2>Kits</h2>
+<p>To the right of spawn are some spout/pipe structures that spew particles — standing under one will give you the corresponding kit.</p>
+<figure><img src="images/image_1781432386235_0.png" alt="PVP kit dispensers"></figure>
+<p>Currently only the <strong>Mace</strong> kit is available. Sword and Crystal kits will be added in the future, and block-decay mechanics still need to be balanced.</p>
+</div>
+</section>
+
+<!-- ══════════════════════════════ COMMANDS ═══════════════════════════════ -->
+<section class="page" data-page="commands">
+<div class="content">
+<h1>Commands</h1>
+<p>All commands available to players on Bhascraft. Commands marked with a rank require that rank or higher.</p>
+<h2>General Commands</h2>
+<p>Available to every player regardless of rank:</p>
+<div class="cmd-list">
+<div class="cmd"><div class="cmd-key"><code>/playtime</code></div><div class="cmd-desc">Displays your total playtime on the server.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/warp [name]</code></div><div class="cmd-desc">Teleports you to a public server warp location.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/warp list</code></div><div class="cmd-desc">Lists all available public warp destinations.</div></div>
+</div>
+<h2>Creative Plot Commands</h2>
+<div class="callout callout-tip"><span class="callout-label">💡 Tip</span><span>You can use <code>/p</code> as a shortcut for <code>/plot</code>.</span></div>
+<div class="cmd-list">
+<div class="cmd"><div class="cmd-key"><code>/plot auto</code></div><div class="cmd-desc">Automatically finds and claims the nearest empty plot.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/plot claim</code></div><div class="cmd-desc">Claims the plot you are currently standing on.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/plot home</code></div><div class="cmd-desc">Teleports you to your plot.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/plot clear</code></div><div class="cmd-desc">Resets all blocks on your plot to the default flat state.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/plot delete</code></div><div class="cmd-desc">Clears and unclaims your plot entirely.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/plot list</code></div><div class="cmd-desc">Lists plots based on specified criteria.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/plot visit [player]</code></div><div class="cmd-desc">Teleports you to another player's plot.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/plot add [player]</code></div><div class="cmd-desc">Allows a player to build on your plot while you are online.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/plot trust [player]</code></div><div class="cmd-desc">Gives a player permanent build access to your plot.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/plot remove [player]</code></div><div class="cmd-desc">Revokes build access from an added or trusted player.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/plot confirm</code></div><div class="cmd-desc">Confirms a destructive action such as clearing or deleting.</div></div>
+</div>
+<h2>WorldEdit Commands</h2>
+<p>WorldEdit is available in the Creative world only.</p>
+<div class="cmd-list">
+<div class="cmd"><div class="cmd-key"><code>//wand</code></div><div class="cmd-desc">Gives you the region selection tool (usually a wooden axe).</div></div>
+<div class="cmd"><div class="cmd-key"><code>//pos1 / //pos2</code></div><div class="cmd-desc">Sets selection position 1 or 2 at your current eye location.</div></div>
+<div class="cmd"><div class="cmd-key"><code>//hpos1 / //hpos2</code></div><div class="cmd-desc">Sets selection position 1 or 2 at the block you are looking at.</div></div>
+<div class="cmd"><div class="cmd-key"><code>//set [block]</code></div><div class="cmd-desc">Fills your entire selection with a specific block.</div></div>
+<div class="cmd"><div class="cmd-key"><code>//replace [from] [to]</code></div><div class="cmd-desc">Replaces one block type with another inside your selection.</div></div>
+<div class="cmd"><div class="cmd-key"><code>//walls [block]</code></div><div class="cmd-desc">Builds a perimeter wall around the edges of your selection.</div></div>
+<div class="cmd"><div class="cmd-key"><code>//faces [block]</code></div><div class="cmd-desc">Creates a hollow box (walls, floor, and ceiling) around your selection.</div></div>
+<div class="cmd"><div class="cmd-key"><code>//copy</code></div><div class="cmd-desc">Copies your selection to your clipboard.</div></div>
+<div class="cmd"><div class="cmd-key"><code>//cut</code></div><div class="cmd-desc">Removes your selection and copies it to your clipboard.</div></div>
+<div class="cmd"><div class="cmd-key"><code>//flip</code></div><div class="cmd-desc">Flips your clipboard selection directionally.</div></div>
+<div class="cmd"><div class="cmd-key"><code>//rotate [angle]</code></div><div class="cmd-desc">Rotates your clipboard selection by a given number of degrees.</div></div>
+<div class="cmd"><div class="cmd-key"><code>//paste</code></div><div class="cmd-desc">Pastes your clipboard relative to your current position.</div></div>
+<div class="cmd"><div class="cmd-key"><code>//undo</code></div><div class="cmd-desc">Reverts your last WorldEdit action.</div></div>
+<div class="cmd"><div class="cmd-key"><code>//redo</code></div><div class="cmd-desc">Re-applies your last undone WorldEdit action.</div></div>
+</div>
+<h2>SkyBlock Commands</h2>
+<div class="callout callout-tip"><span class="callout-label">💡 Tip</span><span>You can use <code>/is</code> as a shortcut for <code>/island</code>.</span></div>
+<div class="cmd-list">
+<div class="cmd"><div class="cmd-key"><code>/island</code></div><div class="cmd-desc">Opens the main SkyBlock interface menu.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/island create</code></div><div class="cmd-desc">Generates a new starter island for you.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/island go / /island home</code></div><div class="cmd-desc">Teleports you straight back to your island home.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/island sethome</code></div><div class="cmd-desc">Sets your primary island teleport destination.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/island homes</code></div><div class="cmd-desc">Displays all home locations you have set on your island.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/island deletehome [name]</code></div><div class="cmd-desc">Deletes a specific island home point.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/island reset</code></div><div class="cmd-desc">Deletes your current island so you can start over.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/island info</code></div><div class="cmd-desc">Shows technical data about your island.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/island language</code></div><div class="cmd-desc">Opens the language settings menu.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/island name [name]</code></div><div class="cmd-desc">Sets a custom display name for your island.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/island near</code></div><div class="cmd-desc">Lists nearby islands around your location.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/island spawn</code></div><div class="cmd-desc">Warps you to the SkyBlock world's spawn.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/island settings</code></div><div class="cmd-desc">Opens a GUI to toggle island rules and permissions.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/island expel [player]</code></div><div class="cmd-desc">Forces a visitor out of your island.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/island ban [player]</code></div><div class="cmd-desc">Bans a player from entering your island.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/island team</code></div><div class="cmd-desc">Opens the team configuration menu.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/island team invite [player]</code></div><div class="cmd-desc">Invites a player to your island team.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/island team accept / reject</code></div><div class="cmd-desc">Accepts or rejects an island team invitation.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/island team leave</code></div><div class="cmd-desc">Leaves your current island team.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/island team kick [player]</code></div><div class="cmd-desc">Removes a member from your island team.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/island team trust [player]</code></div><div class="cmd-desc">Gives permanent build access without joining the team.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/island team coop [player]</code></div><div class="cmd-desc">Gives an online player temporary build access.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/island team promote/demote [player]</code></div><div class="cmd-desc">Promotes or demotes a team member.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/island team setowner [player]</code></div><div class="cmd-desc">Transfers island ownership to another member.</div></div>
+</div>
+<h2>Rank-Locked Commands</h2>
+<h3>Master Rank</h3>
+<div class="cmd-list">
+<div class="cmd"><div class="cmd-key"><code>/msg [player] [message]</code></div><div class="cmd-desc">Sends a private direct message to another online player.</div></div>
+</div>
+<h3>Veteran Rank</h3>
+<div class="cmd-list">
+<div class="cmd"><div class="cmd-key"><code>/disposal</code></div><div class="cmd-desc">Opens a temporary trash UI where you can destroy items permanently.</div></div>
+</div>
+<h3>Champion Rank</h3>
+<div class="cmd-list">
+<div class="cmd"><div class="cmd-key"><code>/skull</code></div><div class="cmd-desc">Spawns a decorative player head.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/skull [player]</code></div><div class="cmd-desc">Spawns a skull with a specified player's skin.</div></div>
+</div>
+<h3>Legend Rank</h3>
+<div class="cmd-list">
+<div class="cmd"><div class="cmd-key"><code>/nick [nickname]</code></div><div class="cmd-desc">Sets a custom chat display nickname.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/nick [color/format]</code></div><div class="cmd-desc">Applies MiniMessage formatting or colour to your nickname.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/pp or /playerparticles</code></div><div class="cmd-desc">Opens the particle effects menu to apply cosmetic effects.</div></div>
+</div>
+</div>
+</section>
+
+<!-- ══════════════════════════════ TECHNICAL ══════════════════════════════ -->
+<section class="page" data-page="technical">
+<div class="content">
+<h1>Technical Info</h1>
+<h2>Hardware</h2>
+<p>The server runs on a <strong>Lenovo ThinkCentre M910q</strong>.</p>
+<h3>System Overview</h3>
+<ul>
+  <li><strong>Model:</strong> Lenovo ThinkCentre M910q (10MUS0C500)</li>
+  <li><strong>Motherboard/Bus:</strong> Lenovo 310B (Intel Q270 Chipset)</li>
+</ul>
+<h3>Processor (CPU)</h3>
+<ul>
+  <li><strong>Model:</strong> Intel® Core™ i5-7500T @ 2.70 GHz (7th Generation)</li>
+  <li><strong>L1 Cache:</strong> 256 KiB</li>
+  <li><strong>L2 Cache:</strong> 1 MiB</li>
+  <li><strong>L3 Cache:</strong> 6 MiB</li>
+</ul>
+<h3>Memory (RAM)</h3>
+<ul>
+  <li><strong>Total Capacity:</strong> 16 GiB</li>
+  <li><strong>Configuration:</strong> 2 × 8 GiB slots</li>
+  <li><strong>Type:</strong> SODIMM DDR4 Synchronous Unbuffered (2400 MHz)</li>
+</ul>
+<h3>Storage</h3>
+<ul>
+  <li><strong>Drive 1 (NVMe SSD):</strong> 128 GB Samsung MZVLW128HEGR</li>
+  <li><strong>Drive 2 (SATA SSD):</strong> 232 GiB Samsung SSD 850 <em>(server data disk)</em></li>
+</ul>
+<h3>Other</h3>
+<ul>
+  <li><strong>GPU:</strong> Intel® HD Graphics 630 (/dev/fb0)</li>
+  <li><strong>Audio:</strong> Intel 200 Series PCH HD Audio</li>
+  <li><strong>Network:</strong> Intel® Connection (2) I219-LM (Gigabit LAN)</li>
+</ul>
+<h3>lshw Output</h3>
+<pre><code>H/W path         Device          Class          Description
+===========================================================
+                                 system         10MUS0C500 (ThinkCentre M910q)
+/0                               bus            310B
+/0/0                             memory         64KiB BIOS
+/0/3e                            memory         16GiB System Memory
+/0/3e/0                          memory         8GiB SODIMM DDR4 2400 MHz
+/0/3e/1                          memory         8GiB SODIMM DDR4 2400 MHz
+/0/43                            memory         256KiB L1 cache
+/0/44                            memory         1MiB L2 cache
+/0/45                            memory         6MiB L3 cache
+/0/46                            processor      Intel(R) Core(TM) i5-7500T CPU @ 2.70GHz
+/0/100/2         /dev/fb0        display        HD Graphics 630
+/0/100/17        scsi0           storage        200 Series PCH SATA [AHCI mode]
+/0/100/17/0.0.0  /dev/sda        volume         232GiB Samsung SSD 850
+/0/100/1b/0      /dev/nvme0      storage        SAMSUNG MZVLW128HEGR-000L1
+/0/100/1b/0/1    /dev/nvme0n1    disk           128GB NVMe disk
+/0/100/1f.6      enp0s31f6       network        Ethernet Connection (2) I219-LM</code></pre>
+<h2>Plugins</h2>
+<p>Bhascraft uses the <strong>Paper MC</strong> plugin loader. More info at <a href="https://papermc.io/" target="_blank" rel="noopener">papermc.io</a>.</p>
+<h3>Chat & Display</h3>
+<div class="cmd-list">
+<div class="cmd"><div class="cmd-key">CarbonChat</div><div class="cmd-desc">Manages chat formatting, channels (local, global, plot chat), and direct messaging.</div></div>
+<div class="cmd"><div class="cmd-key">FancyHolograms</div><div class="cmd-desc">Creates floating text, images, or item displays in the world to show info or welcome messages.</div></div>
+<div class="cmd"><div class="cmd-key">FancyNpcs</div><div class="cmd-desc">Adds customisable NPCs that can talk, look at players, or execute commands when clicked.</div></div>
+<div class="cmd"><div class="cmd-key">MiniMOTD</div><div class="cmd-desc">Customises the message players see on the server list before joining.</div></div>
+</div>
+<h3>World & Game Modes</h3>
+<div class="cmd-list">
+<div class="cmd"><div class="cmd-key">BentoBox &amp; BentoBox-BSkyBlock</div><div class="cmd-desc">The framework used to generate, manage, and protect player SkyBlock islands.</div></div>
+<div class="cmd"><div class="cmd-key">PlotSquared</div><div class="cmd-desc">Generates the creative plot world and handles plot ownership and claiming.</div></div>
+<div class="cmd"><div class="cmd-key">Multiverse-Core</div><div class="cmd-desc">Runs multiple separate worlds simultaneously on one server instance.</div></div>
+<div class="cmd"><div class="cmd-key">Multiverse-Inventories</div><div class="cmd-desc">Separates player inventories, health, and XP between different worlds.</div></div>
+<div class="cmd"><div class="cmd-key">Multiverse-Portals</div><div class="cmd-desc">Creates physical in-game portals to teleport players between worlds.</div></div>
+</div>
+<h3>Core Mechanics & Management</h3>
+<div class="cmd-list">
+<div class="cmd"><div class="cmd-key">LuckPerms</div><div class="cmd-desc">The primary permission manager, handling ranks, prefixes, and command access.</div></div>
+<div class="cmd"><div class="cmd-key">Essentials &amp; EssentialsSpawn</div><div class="cmd-desc">Provides core utility commands (teleportation, warps, homes, messaging) and spawn management.</div></div>
+<div class="cmd"><div class="cmd-key">Vault</div><div class="cmd-desc">A bridge plugin linking chat, permissions, and economy systems together.</div></div>
+<div class="cmd"><div class="cmd-key">ViaVersion</div><div class="cmd-desc">Allows players on newer Minecraft versions to connect to the server.</div></div>
+<div class="cmd"><div class="cmd-key">Statz</div><div class="cmd-desc">Tracks player statistics such as playtime, blocks broken, and deaths.</div></div>
+<div class="cmd"><div class="cmd-key">aJLeaderboards</div><div class="cmd-desc">Pulls stat data to display leaderboards on signs, holograms, and in the tab list.</div></div>
+</div>
+<h3>World Editing & Protection</h3>
+<div class="cmd-list">
+<div class="cmd"><div class="cmd-key">FastAsyncWorldEdit (FAWE)</div><div class="cmd-desc">A high-performance WorldEdit for large block operations without server lag.</div></div>
+<div class="cmd"><div class="cmd-key">WorldGuard &amp; WorldGuardExtraFlags</div><div class="cmd-desc">Defines protected regions (like spawns) and adds extra zone properties.</div></div>
+</div>
+<h3>Cross-Play (Bedrock)</h3>
+<div class="cmd-list">
+<div class="cmd"><div class="cmd-key">Geyser-Spigot &amp; Floodgate</div><div class="cmd-desc">Allows Bedrock Edition players (mobile, console, PC) to join the Java Edition server.</div></div>
+</div>
+<h3>Player Features & Cosmetics</h3>
+<div class="cmd-list">
+<div class="cmd"><div class="cmd-key">PlayerParticles</div><div class="cmd-desc">Gives players access to cosmetic particle trail effects.</div></div>
+<div class="cmd"><div class="cmd-key">voicechat</div><div class="cmd-desc">Adds proximity-based voice chat so nearby players can talk with microphones.</div></div>
+<div class="cmd"><div class="cmd-key">TAB</div><div class="cmd-desc">Customises the player list overlay (Tab display) and nametags above player heads.</div></div>
+</div>
+<h3>Staff, Automation & Tools</h3>
+<div class="cmd-list">
+<div class="cmd"><div class="cmd-key">AxInventoryRestore / InvRestore</div><div class="cmd-desc">Automatically backs up player inventories on death or logout so staff can restore lost items.</div></div>
+<div class="cmd"><div class="cmd-key">PlaceholderAPI</div><div class="cmd-desc">A framework that injects dynamic variables (player name, rank, balance) into text plugins.</div></div>
+<div class="cmd"><div class="cmd-key">Skript</div><div class="cmd-desc">A scripting plugin that lets you write custom gameplay mechanics using plain English text files.</div></div>
+<div class="cmd"><div class="cmd-key">MinecraftDashboard</div><div class="cmd-desc">Connects the server to a web dashboard for off-site monitoring and control.</div></div>
+</div>
+<h2>Server Execution</h2>
+<p>The server runs inside a custom Docker container. For more information on Docker, see <a href="https://www.docker.com/" target="_blank" rel="noopener">docker.com</a>.</p>
+<h3>Dockerfile</h3>
+<pre><code class="language-dockerfile">FROM amazoncorretto:26-alpine3.20
+VOLUME /tmp
+RUN mkdir -p /server
+WORKDIR /server
+EXPOSE 25565
+EXPOSE 8100
+ENTRYPOINT ["sh", "-c", "exec java -Xmx7000M -Xms7000M -jar /server/paper.jar"]</code></pre>
+<p>The server is allocated <strong>7,000 MB</strong> of RAM. Docker handles automatic restarts and keeps the server isolated from the host system.</p>
+<h3>Docker Run Command</h3>
+<pre><code class="language-bash">docker run -p 25565:25565 -p 8100:8100 -p 24454:24454/udp -p 19132:19132/udp -d \
+  -e FORCE_REDOWNLOAD_CA_CERTIFICATES=true \
+  -e JAVA_TOOL_OPTIONS="-Djava.net.preferIPv4Stack=true" \
+  -v /etc/timezone:/etc/timezone:ro \
+  -v /etc/localtime:/etc/localtime:ro \
+  --name bhascraft --restart always \
+  --mount type=bind,src=/mnt/ssd/bhascraft-data/,dst=/server \
+  hydrogenrocket/bhascraft</code></pre>
+<p>Server data is bind-mounted to the host filesystem so it can be edited easily by users and plugins without needing to access the container directly.</p>
+<h2>Server Data</h2>
+<h3>Dashboard</h3>
+<figure><img src="images/image_1781437974485_0.png" alt="Yacht dashboard screenshot"></figure>
+<h3>Disk Usage (du -h -d 1)</h3>
+<pre><code class="language-bash">4.0K    ./eula.txt
+16M     ./hub
+56M     ./versions
+94M     ./logs
+53M     ./paper.jar
+37M     ./plots
+16M     ./bskyblock_world_the_end
+3.8G    ./world
+46M     ./bskyblock_world
+162M    ./pvp
+298M    ./world_nether
+375M    ./plugins
+156M    ./libraries
+17M     ./bskyblock_world_nether
+894M    ./world_the_end
+6.1G    .</code></pre>
+</div>
+</section>
+
 </main>
 <script src="js/main.js"></script>
 </body>
