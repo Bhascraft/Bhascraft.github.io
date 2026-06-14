@@ -25,9 +25,10 @@
 
   .hero-bg {
     position: absolute;
-    inset: 0;
+    inset: -6%;
     background: url('Backround.png') center / cover no-repeat;
     z-index: 0;
+    will-change: transform;
   }
 
   /* Subtle vignette so the UI pops */
@@ -214,6 +215,46 @@
 </div>
 
 <script>
+  /* ── Parallax ──────────────────────────────────────── */
+  const heroBg = document.querySelector('.hero-bg');
+  const logo   = document.querySelector('.logo');
+
+  var mouse   = { x: 0.5, y: 0.5 };
+  var current = { x: 0.5, y: 0.5 };
+  var parallaxReady = false;
+
+  document.addEventListener('mousemove', function (e) {
+    mouse.x = e.clientX / window.innerWidth;
+    mouse.y = e.clientY / window.innerHeight;
+  });
+
+  logo.addEventListener('animationend', function () {
+    logo.style.animation = 'none';
+    logo.style.opacity   = '1';
+    parallaxReady = true;
+  }, { once: true });
+
+  (function loop() {
+    current.x += (mouse.x - current.x) * 0.055;
+    current.y += (mouse.y - current.y) * 0.055;
+
+    var dx = current.x - 0.5;
+    var dy = current.y - 0.5;
+
+    // Background drifts with the mouse
+    heroBg.style.transform =
+      'translate(' + (dx * 40) + 'px, ' + (dy * 30) + 'px)';
+
+    // Logo drifts the opposite way
+    if (parallaxReady) {
+      logo.style.transform =
+        'translateX(calc(-50% + ' + (dx * -28) + 'px)) translateY(' + (dy * -18) + 'px)';
+    }
+
+    requestAnimationFrame(loop);
+  })();
+
+  /* ── Copy IP ───────────────────────────────────────── */
   const playBtn  = document.getElementById('playBtn');
   const label    = playBtn.querySelector('span');
   const toast    = document.getElementById('toast');
