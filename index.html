@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bhascraft</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body { width: 100%; height: 100%; overflow: hidden; }
+
+  body { font-family: 'Press Start 2P', monospace; }
+
+  /* ── Background ─────────────────────────────────────── */
+  .hero {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background: url('Backround.png') center / cover no-repeat;
+    z-index: 0;
+  }
+
+  /* Subtle vignette so the UI pops */
+  .hero-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 50% 40%, transparent 35%, rgba(0,0,0,0.35) 100%),
+      linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, transparent 30%, transparent 60%, rgba(0,0,0,0.3) 100%);
+  }
+
+  /* ── Entry animations ───────────────────────────────── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateX(-50%) translateY(28px); }
+    to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+  }
+
+  @keyframes fadeUpButtons {
+    from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+    to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+  }
+
+  /* ── Logo ───────────────────────────────────────────── */
+  .logo {
+    position: absolute;
+    top: 7%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+    width: min(580px, 78vw);
+
+    opacity: 0;
+    animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.1s forwards;
+  }
+  .logo img { width: 100%; height: auto; display: block; }
+
+  /* ── Buttons ────────────────────────────────────────── */
+  .buttons {
+    position: absolute;
+    bottom: 16%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+    display: flex;
+    gap: 1.25rem;
+    align-items: center;
+
+    opacity: 0;
+    animation: fadeUpButtons 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.45s forwards;
+  }
+
+  .btn {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 20px 36px;
+    background: #302A52;
+    border-radius: 27px;
+    text-decoration: none;
+    color: #fff;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 1.2rem;
+    white-space: nowrap;
+
+    /* Outline + raised-shadow depth */
+    box-shadow:
+      inset 0 3px 0 rgba(255, 255, 255, 0.14),
+      0 0 0 3px rgba(255, 255, 255, 0.14),
+      0 7px 0 rgba(0, 0, 0, 0.7),
+      0 9px 20px rgba(0, 0, 0, 0.4);
+
+    transition:
+      transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
+      box-shadow 0.2s ease;
+
+    user-select: none;
+    cursor: pointer;
+  }
+
+  .btn:hover {
+    transform: translateY(-7px);
+    box-shadow:
+      inset 0 3px 0 rgba(255, 255, 255, 0.14),
+      0 0 0 3px rgba(255, 255, 255, 0.14),
+      0 14px 0 rgba(0, 0, 0, 0.7),
+      0 16px 28px rgba(0, 0, 0, 0.35);
+  }
+
+  .btn:active {
+    transform: translateY(2px);
+    transition-duration: 0.06s;
+    box-shadow:
+      inset 0 3px 0 rgba(255, 255, 255, 0.14),
+      0 0 0 3px rgba(255, 255, 255, 0.14),
+      0 3px 0 rgba(0, 0, 0, 0.7),
+      0 4px 8px rgba(0, 0, 0, 0.3);
+  }
+
+  .btn-icon {
+    height: 30px;
+    width: auto;
+    display: block;
+  }
+
+  /* "Copied!" feedback state */
+  .btn-play.copied {
+    background: #2a5232;
+  }
+
+  /* ── Toast popup ────────────────────────────────────── */
+  .toast {
+    position: fixed;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    z-index: 100;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+
+    background: rgba(20, 16, 36, 0.92);
+    border: 2px solid rgba(255, 255, 255, 0.15);
+    border-radius: 14px;
+    padding: 14px 24px;
+    backdrop-filter: blur(8px);
+
+    color: #fff;
+    font-family: 'Press Start 2P', monospace;
+    text-align: center;
+    white-space: nowrap;
+
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+
+  .toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  .toast-label {
+    font-size: 0.55rem;
+    color: rgba(255, 255, 255, 0.55);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .toast-ip {
+    font-size: 0.85rem;
+    color: #6ee77a;
+    letter-spacing: 0.04em;
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-bg"></div>
+
+  <div class="logo">
+    <img src="Bhascraft.svg" alt="Bhascraft">
+  </div>
+
+  <div class="toast" id="toast">
+    <span class="toast-label">Server IP copied!</span>
+    <span class="toast-ip" id="toastIp"></span>
+  </div>
+
+  <div class="buttons">
+    <button class="btn btn-play" id="playBtn">
+      <img src="Play-icon.svg" alt="" class="btn-icon">
+      <span>Play</span>
+    </button>
+
+    <a href="wiki/index.html" class="btn">
+      <img src="Document.svg" alt="" class="btn-icon">
+      Docs
+    </a>
+  </div>
+</div>
+
+<script>
+  const playBtn  = document.getElementById('playBtn');
+  const label    = playBtn.querySelector('span');
+  const toast    = document.getElementById('toast');
+  const toastIp  = document.getElementById('toastIp');
+  const SERVER_IP = '51.148.188.225';
+  let resetTimer, toastTimer;
+
+  function showToast(ip) {
+    toastIp.textContent = ip;
+    toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { toast.classList.remove('show'); }, 2500);
+  }
+
+  playBtn.addEventListener('click', function () {
+    navigator.clipboard.writeText(SERVER_IP).then(function () {
+      label.textContent = 'Copied!';
+      playBtn.classList.add('copied');
+      showToast(SERVER_IP);
+      clearTimeout(resetTimer);
+      resetTimer = setTimeout(function () {
+        label.textContent = 'Play';
+        playBtn.classList.remove('copied');
+      }, 2000);
+    }).catch(function () {
+      label.textContent = SERVER_IP;
+      showToast(SERVER_IP);
+      clearTimeout(resetTimer);
+      resetTimer = setTimeout(function () { label.textContent = 'Play'; }, 3000);
+    });
+  });
+</script>
+
+</body>
+</html>

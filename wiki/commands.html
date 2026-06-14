@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Commands — Bhascraft Docs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Press+Start+2P&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">&#9776;</button>
+<aside class="sidebar" id="sidebar">
+  <a href="../index.html" class="brand">
+    <img src="Bhascraft.svg" alt="Bhascraft Docs" class="brand-logo">
+  </a>
+  <div class="nav-section-label">Navigation</div>
+  <nav class="sidebar-nav">
+    <a href="index.html">Home</a>
+<a href="survival.html">Survival</a>
+<a href="creative.html">Creative</a>
+<a href="skyblock.html">Skyblock</a>
+<a href="pvp.html">PVP</a>
+<a href="commands.html" class="active">Commands</a>
+<a href="technical-info.html">Technical Info</a>
+  </nav>
+</aside>
+<div class="overlay" id="overlay"></div>
+<main class="main">
+  <div class="content">
+<h1>Commands</h1>
+<p>All commands available to players on Bhascraft. Commands marked with a rank require that rank or higher.</p>
+<h2>General Commands</h2>
+<p>Available to every player regardless of rank:</p>
+<div class="cmd-list"><div class="cmd"><div class="cmd-key"><code>/playtime</code></div><div class="cmd-desc">Displays your total playtime on the server.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/warp [name]</code></div><div class="cmd-desc">Teleports you to a public server warp location.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/warp list</code></div><div class="cmd-desc">Lists all available public warp destinations.</div></div></div>
+<h2>Creative Plot Commands</h2>
+<div class="callout callout-tip"><span class="callout-label">💡 Tip</span><span>You can use <code>/p</code> as a shortcut for <code>/plot</code>.</span></div>
+<div class="cmd-list"><div class="cmd"><div class="cmd-key"><code>/plot auto</code></div><div class="cmd-desc">Automatically finds and claims the nearest empty plot.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/plot claim</code></div><div class="cmd-desc">Claims the plot you are currently standing on.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/plot home</code></div><div class="cmd-desc">Teleports you to your plot.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/plot clear</code></div><div class="cmd-desc">Resets all blocks on your plot to the default flat state.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/plot delete</code></div><div class="cmd-desc">Clears and unclaims your plot entirely.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/plot list</code></div><div class="cmd-desc">Lists plots based on specified criteria.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/plot visit [player]</code></div><div class="cmd-desc">Teleports you to another player&#x27;s plot.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/plot add [player]</code></div><div class="cmd-desc">Allows a player to build on your plot while you are online.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/plot trust [player]</code></div><div class="cmd-desc">Gives a player permanent build access to your plot.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/plot remove [player]</code></div><div class="cmd-desc">Revokes build access from an added or trusted player.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/plot confirm</code></div><div class="cmd-desc">Confirms a destructive action such as clearing or deleting.</div></div></div>
+<h2>WorldEdit Commands</h2>
+<p>WorldEdit is available in the Creative world only.</p>
+<div class="cmd-list"><div class="cmd"><div class="cmd-key"><code>//wand</code></div><div class="cmd-desc">Gives you the region selection tool (usually a wooden axe).</div></div>
+<div class="cmd"><div class="cmd-key"><code>//pos1 / //pos2</code></div><div class="cmd-desc">Sets selection position 1 or 2 at your current eye location.</div></div>
+<div class="cmd"><div class="cmd-key"><code>//hpos1 / //hpos2</code></div><div class="cmd-desc">Sets selection position 1 or 2 at the block you are looking at.</div></div>
+<div class="cmd"><div class="cmd-key"><code>//set [block]</code></div><div class="cmd-desc">Fills your entire selection with a specific block.</div></div>
+<div class="cmd"><div class="cmd-key"><code>//replace [from] [to]</code></div><div class="cmd-desc">Replaces one block type with another inside your selection.</div></div>
+<div class="cmd"><div class="cmd-key"><code>//walls [block]</code></div><div class="cmd-desc">Builds a perimeter wall around the edges of your selection.</div></div>
+<div class="cmd"><div class="cmd-key"><code>//faces [block]</code></div><div class="cmd-desc">Creates a hollow box (walls, floor, and ceiling) around your selection.</div></div>
+<div class="cmd"><div class="cmd-key"><code>//copy</code></div><div class="cmd-desc">Copies your selection to your clipboard.</div></div>
+<div class="cmd"><div class="cmd-key"><code>//cut</code></div><div class="cmd-desc">Removes your selection and copies it to your clipboard.</div></div>
+<div class="cmd"><div class="cmd-key"><code>//flip</code></div><div class="cmd-desc">Flips your clipboard selection directionally.</div></div>
+<div class="cmd"><div class="cmd-key"><code>//rotate [angle]</code></div><div class="cmd-desc">Rotates your clipboard selection by a given number of degrees.</div></div>
+<div class="cmd"><div class="cmd-key"><code>//paste</code></div><div class="cmd-desc">Pastes your clipboard relative to your current position.</div></div>
+<div class="cmd"><div class="cmd-key"><code>//undo</code></div><div class="cmd-desc">Reverts your last WorldEdit action.</div></div>
+<div class="cmd"><div class="cmd-key"><code>//redo</code></div><div class="cmd-desc">Re-applies your last undone WorldEdit action.</div></div></div>
+<h2>SkyBlock Commands</h2>
+<div class="callout callout-tip"><span class="callout-label">💡 Tip</span><span>You can use <code>/is</code> as a shortcut for <code>/island</code>.</span></div>
+<div class="cmd-list"><div class="cmd"><div class="cmd-key"><code>/island</code></div><div class="cmd-desc">Opens the main SkyBlock interface menu.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/island create</code></div><div class="cmd-desc">Generates a new starter island for you.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/island go / /island home</code></div><div class="cmd-desc">Teleports you straight back to your island home.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/island sethome</code></div><div class="cmd-desc">Sets your primary island teleport destination.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/island homes</code></div><div class="cmd-desc">Displays all home locations you have set on your island.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/island deletehome [name]</code></div><div class="cmd-desc">Deletes a specific island home point.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/island reset</code></div><div class="cmd-desc">Deletes your current island so you can start over.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/island info</code></div><div class="cmd-desc">Shows technical data about your island.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/island language</code></div><div class="cmd-desc">Opens the language settings menu.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/island name [name]</code></div><div class="cmd-desc">Sets a custom display name for your island.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/island near</code></div><div class="cmd-desc">Lists nearby islands around your location.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/island spawn</code></div><div class="cmd-desc">Warps you to the SkyBlock world&#x27;s spawn.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/island settings</code></div><div class="cmd-desc">Opens a GUI to toggle island rules and permissions.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/island expel [player]</code></div><div class="cmd-desc">Forces a visitor out of your island.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/island ban [player]</code></div><div class="cmd-desc">Bans a player from entering your island.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/island team</code></div><div class="cmd-desc">Opens the team configuration menu.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/island team invite [player]</code></div><div class="cmd-desc">Invites a player to your island team.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/island team accept / reject</code></div><div class="cmd-desc">Accepts or rejects an island team invitation.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/island team leave</code></div><div class="cmd-desc">Leaves your current island team.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/island team kick [player]</code></div><div class="cmd-desc">Removes a member from your island team.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/island team trust [player]</code></div><div class="cmd-desc">Gives permanent build access without joining the team.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/island team coop [player]</code></div><div class="cmd-desc">Gives an online player temporary build access.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/island team promote/demote [player]</code></div><div class="cmd-desc">Promotes or demotes a team member.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/island team setowner [player]</code></div><div class="cmd-desc">Transfers island ownership to another member.</div></div></div>
+<h2>Rank-Locked Commands</h2>
+<h3>Master Rank</h3>
+<div class="cmd-list"><div class="cmd"><div class="cmd-key"><code>/msg [player] [message]</code></div><div class="cmd-desc">Sends a private direct message to another online player.</div></div></div>
+<h3>Veteran Rank</h3>
+<div class="cmd-list"><div class="cmd"><div class="cmd-key"><code>/disposal</code></div><div class="cmd-desc">Opens a temporary trash UI where you can destroy items permanently.</div></div></div>
+<h3>Champion Rank</h3>
+<div class="cmd-list"><div class="cmd"><div class="cmd-key"><code>/skull</code></div><div class="cmd-desc">Spawns a decorative player head.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/skull [player]</code></div><div class="cmd-desc">Spawns a skull with a specified player&#x27;s skin.</div></div></div>
+<h3>Legend Rank</h3>
+<div class="cmd-list"><div class="cmd"><div class="cmd-key"><code>/nick [nickname]</code></div><div class="cmd-desc">Sets a custom chat display nickname.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/nick [color/format]</code></div><div class="cmd-desc">Applies MiniMessage formatting or colour to your nickname.</div></div>
+<div class="cmd"><div class="cmd-key"><code>/pp or /playerparticles</code></div><div class="cmd-desc">Opens the particle effects menu to apply cosmetic effects.</div></div></div>
+  </div>
+</main>
+<script src="js/main.js"></script>
+</body>
+</html>

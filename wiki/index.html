@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Home — Bhascraft Docs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Press+Start+2P&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">&#9776;</button>
+<aside class="sidebar" id="sidebar">
+  <a href="../index.html" class="brand">
+    <img src="Bhascraft.svg" alt="Bhascraft Docs" class="brand-logo">
+  </a>
+  <div class="nav-section-label">Navigation</div>
+  <nav class="sidebar-nav">
+    <a href="index.html" class="active">Home</a>
+<a href="survival.html">Survival</a>
+<a href="creative.html">Creative</a>
+<a href="skyblock.html">Skyblock</a>
+<a href="pvp.html">PVP</a>
+<a href="commands.html">Commands</a>
+<a href="technical-info.html">Technical Info</a>
+  </nav>
+</aside>
+<div class="overlay" id="overlay"></div>
+<main class="main">
+  <div class="content">
+<h1>Bhascraft Docs</h1>
+<h2>Welcome</h2>
+<p>Welcome to <strong>Bhascraft</strong>, a multi-gamemode Minecraft server! Upon joining the server, you will spawn in the <strong>Hub</strong> (lobby).</p>
+<figure><img src="images/image_1781008239149_0.png" alt="Hub screenshot"></figure>
+<p>From the Hub you can access all the gamemodes:</p>
+<div class="gm-grid"><a href="survival.html" class="gm-card"><span class="gm-icon">⚔️</span><div><strong>Survival</strong><span>PvP, griefing, and open-world survival.</span></div></a>
+<a href="creative.html" class="gm-card"><span class="gm-icon">🎨</span><div><strong>Creative</strong><span>Plot-based creative building with WorldEdit.</span></div></a>
+<a href="skyblock.html" class="gm-card"><span class="gm-icon">🏝️</span><div><strong>Skyblock</strong><span>Island survival with a team system.</span></div></a>
+<a href="pvp.html" class="gm-card"><span class="gm-icon">🗡️</span><div><strong>PVP</strong><span>FFA kit-based PVP arena.</span></div></a></div>
+<hr class="section-divider">
+<h2>Mechanics</h2>
+<h3>AFK System</h3>
+<p>The <strong>AFK</strong> system prevents players from gaining playtime if they haven't done anything on the server for more than <strong>30 seconds</strong>. This stops players from leaving their accounts AFK to farm ranks and leaderboard positions.</p>
+<p>The AFK detector can be spoofed by most things (e.g., water circles, piston movers, and AFK-spoofer mods). If the AFK system gets tricked and abused, the detection will be made more strict — hopefully this won't need to happen.</p>
+<hr class="section-divider">
+<h2>Ranks</h2>
+<p>Bhascraft has <strong>5 ranks</strong>. Here is a table showing the prefixes, rewards, and playtime requirements:</p>
+<div class="table-wrap"><table><thead><tr><th>Rank</th><th>Unlocked Commands</th><th>Playtime Required</th></tr></thead><tbody><tr><td><span class="rank rank-beginner">[BEGINNER]</span></td><td>/warp, /playtime, etc. (see Commands page)</td><td>0 hours</td></tr>
+<tr><td><span class="rank rank-master">[MASTER]</span></td><td>/msg (private message)</td><td>25 hours</td></tr>
+<tr><td><span class="rank rank-veteran">[VETERAN]</span></td><td>/trash (opens a chest UI that erases items)</td><td>50 hours</td></tr>
+<tr><td><span class="rank rank-champion">[CHAMPION]</span></td><td>/skull (gives you a skull of a specified account)</td><td>150 hours</td></tr>
+<tr><td><span class="rank rank-legend">-=LEGEND=-</span></td><td>/pp (particles), /nick (custom nickname)</td><td>300 hours</td></tr></tbody></table></div>
+<h3>MiniMessage Formatting</h3>
+<p><strong>MiniMessage</strong> is a way of formatting text on a Paper Minecraft server. It works by adding tags before and after your text to change its colour and effects.</p>
+<p>The tags look like this: &lt;blue&gt;, &lt;rainbow&gt;, &lt;bold&gt; and &lt;#0000FF&gt;</p>
+<p>It can be used in most places where you can enter text (like <strong>/nick</strong>), with the exception of normal chat. More info can be found on the <a href="https://docs.papermc.io/adventure/minimessage/">Paper MC Docs</a>.</p>
+<hr class="section-divider">
+<h2>Bedrock Edition</h2>
+<p>The server has the <strong>Geyser MC</strong> plugin, which allows players from Bedrock Edition to connect to Bhascraft. Since Bedrock is available on consoles, tablets/iPads, and PCs, the connection method varies by platform.</p>
+<h3>PC / Pocket Edition</h3>
+<p>Connecting from Pocket Edition or PC is straightforward:</p>
+<ol>
+  <li>Press <strong>Play</strong>.</li>
+  <li>Navigate to the <strong>Servers</strong> tab.</li>
+  <li>Scroll past the featured servers and press <strong>Add Server +</strong>.</li>
+  <li>Enter the following details:<br><strong>Server Name:</strong> Anything you like<br><strong>Server Address:</strong> 51.148.188.225<br><strong>Port:</strong> 19132 (default)</li>
+</ol>
+<p>Here is an example of the filled-in dialog (note: the image shows placeholder text):</p>
+<figure><img src="images/badrock-serevr-dialog_1781014026913_0.png" alt="Bedrock server connection dialog"></figure>
+<h3>Console</h3>
+<p>Joining from a console is more involved, because consoles don't have a direct "add server" option. You need to use a third-party tool called <strong>BedrockConnect</strong> to redirect your console to Bhascraft.</p>
+
+<div class="callout callout-info">
+  <strong>Nintendo Switch</strong>
+  <ol>
+    <li>Go into your console's internet settings and set the <strong>primary DNS</strong> to 104.238.130.180 and the <strong>secondary DNS</strong> to 8.8.8.8.</li>
+    <li>Open Minecraft and go to the <strong>Servers</strong> tab.</li>
+    <li>Join a redirect-compatible featured server to open BedrockConnect.</li>
+    <li>Find <strong>Bhascraft</strong> in the server list and connect.</li>
+  </ol>
+  <p class="callout-note">Redirect-compatible servers: Mineville, Lifeboat, Enchanted, Galaxite, The Hive</p>
+</div>
+<div class="callout callout-info">
+  <strong>Xbox</strong>
+  <ol>
+    <li>Go into your console's internet settings and set the <strong>primary DNS</strong> to 104.238.130.180 and the <strong>secondary DNS</strong> to 8.8.8.8.</li>
+    <li>Open Minecraft and go to the <strong>Servers</strong> tab.</li>
+    <li>Join a redirect-compatible featured server to open BedrockConnect.</li>
+    <li>Find <strong>Bhascraft</strong> in the server list and connect.</li>
+  </ol>
+  <p class="callout-note">Redirect-compatible servers: Mineville, Lifeboat, Enchanted, Galaxite, The Hive</p>
+</div>
+<div class="callout callout-info">
+  <strong>PlayStation</strong>
+  <ol>
+    <li>Go into your console's internet settings and set the <strong>primary DNS</strong> to 45.55.68.52 and the <strong>secondary DNS</strong> to 8.8.8.8.</li>
+    <li>Open Minecraft and go to the <strong>Servers</strong> tab.</li>
+    <li>Join a redirect-compatible featured server to open BedrockConnect.</li>
+    <li>Find <strong>Bhascraft</strong> in the server list and connect.</li>
+  </ol>
+  <p class="callout-note">Redirect-compatible servers: Mineville, Lifeboat, Enchanted, Galaxite, The Hive</p>
+</div>
+<p>If the written instructions didn't work, try following this video guide:</p>
+<a href="https://youtu.be/AoLPhKW2Xis" class="yt-btn" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1c.5-1.9.5-5.8.5-5.8s0-3.9-.5-5.8zM9.8 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>Watch on YouTube</a>
+<p>In the future, I plan to add a tool that lets you friend a bot account so the server appears as a joinable world — unfortunately this won't work for Nintendo Switch. For now, here are the relevant links:</p>
+<p><a href="https://github.com/MCXboxBroadcast/Broadcaster">MCXboxBroadcast/Broadcaster</a> — <a href="https://github.com/Pugmatt/BedrockConnect">Pugmatt/BedrockConnect</a></p>
+<hr class="section-divider">
+<h2>Voice Chat</h2>
+<p>Bhascraft has <strong>Simple Voice Chat</strong>, which allows players with the client-side mod to use proximity and group voice chat. Simply install the mod, and it will automatically connect to the server's voice chat plugin.</p>
+<p>Mod: <a href="https://modrinth.com/mod/simple-voice-chat">Simple Voice Chat on Modrinth</a><br>Plugin: <a href="https://modrinth.com/plugin/simple-voice-chat">Simple Voice Chat Plugin on Modrinth</a></p>
+  </div>
+</main>
+<script src="js/main.js"></script>
+</body>
+</html>
