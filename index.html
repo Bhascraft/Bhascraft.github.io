@@ -154,20 +154,21 @@
   /* ── Mobile ─────────────────────────────────────────── */
   @media (max-width: 600px) {
     .logo {
-      width: min(320px, 88vw);
-      top: 12%;
+      width: min(420px, 92vw);
+      top: 10%;
     }
     .buttons {
       flex-direction: column;
       gap: 1rem;
       bottom: 10%;
-      width: 80vw;
+      transition: bottom 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .buttons.raised {
+      bottom: 19%;
     }
     .btn {
-      font-size: 0.85rem;
-      padding: 16px 24px;
-      justify-content: center;
-      width: 100%;
+      font-size: 1rem;
+      padding: 18px 30px;
     }
   }
 
@@ -291,14 +292,19 @@
   const label    = playBtn.querySelector('span');
   const toast    = document.getElementById('toast');
   const toastIp  = document.getElementById('toastIp');
+  const buttonsEl = document.querySelector('.buttons');
   const SERVER_IP = '51.148.188.225';
   let resetTimer, toastTimer;
 
   function showToast(ip) {
     toastIp.textContent = ip;
     toast.classList.add('show');
+    buttonsEl.classList.add('raised');
     clearTimeout(toastTimer);
-    toastTimer = setTimeout(function () { toast.classList.remove('show'); }, 2500);
+    toastTimer = setTimeout(function () {
+      toast.classList.remove('show');
+      buttonsEl.classList.remove('raised');
+    }, 2500);
   }
 
   function swapLabel(newText, addCopied, removeCopied) {
