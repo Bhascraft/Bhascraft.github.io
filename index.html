@@ -103,7 +103,9 @@
 
     transition:
       transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
-      box-shadow 0.2s ease;
+      box-shadow 0.2s ease,
+      width 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
+      background 0.2s ease;
 
     user-select: none;
     cursor: pointer;
@@ -137,6 +139,36 @@
   /* "Copied!" feedback state */
   .btn-play.copied {
     background: #2a5232;
+  }
+
+  /* Label fade for text swap */
+  .btn-play span {
+    display: inline-block;
+    transition: opacity 0.15s ease, transform 0.15s ease;
+  }
+  .btn-play span.label-out {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+
+  /* ── Mobile ─────────────────────────────────────────── */
+  @media (max-width: 600px) {
+    .logo {
+      width: min(320px, 88vw);
+      top: 12%;
+    }
+    .buttons {
+      flex-direction: column;
+      gap: 1rem;
+      bottom: 10%;
+      width: 80vw;
+    }
+    .btn {
+      font-size: 0.85rem;
+      padding: 16px 24px;
+      justify-content: center;
+      width: 100%;
+    }
   }
 
   /* ── Toast popup ────────────────────────────────────── */
@@ -269,21 +301,42 @@
     toastTimer = setTimeout(function () { toast.classList.remove('show'); }, 2500);
   }
 
+  function swapLabel(newText, addCopied, removeCopied) {
+    var from = playBtn.offsetWidth;
+    playBtn.style.width = from + 'px';
+    label.classList.add('label-out');
+
+    setTimeout(function () {
+      label.textContent = newText;
+      if (addCopied)    playBtn.classList.add('copied');
+      if (removeCopied) playBtn.classList.remove('copied');
+      label.classList.remove('label-out');
+
+      // Measure natural width with the new text
+      playBtn.style.width = '';
+      var to = playBtn.offsetWidth;
+
+      // Snap back to old width then let CSS transition carry it to new
+      playBtn.style.width = from + 'px';
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () {
+          playBtn.style.width = to + 'px';
+          setTimeout(function () { playBtn.style.width = ''; }, 280);
+        });
+      });
+    }, 150);
+  }
+
   playBtn.addEventListener('click', function () {
+    clearTimeout(resetTimer);
     navigator.clipboard.writeText(SERVER_IP).then(function () {
-      label.textContent = 'Copied!';
-      playBtn.classList.add('copied');
+      swapLabel('Copied!', true, false);
       showToast(SERVER_IP);
-      clearTimeout(resetTimer);
-      resetTimer = setTimeout(function () {
-        label.textContent = 'Play';
-        playBtn.classList.remove('copied');
-      }, 2000);
+      resetTimer = setTimeout(function () { swapLabel('Play', false, true); }, 2000);
     }).catch(function () {
-      label.textContent = SERVER_IP;
+      swapLabel(SERVER_IP, false, false);
       showToast(SERVER_IP);
-      clearTimeout(resetTimer);
-      resetTimer = setTimeout(function () { label.textContent = 'Play'; }, 3000);
+      resetTimer = setTimeout(function () { swapLabel('Play', false, false); }, 3000);
     });
   });
 </script>
