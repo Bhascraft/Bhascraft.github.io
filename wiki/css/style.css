@@ -149,15 +149,12 @@ body {
 }
 .content { max-width: 820px; }
 
-/* ── Page sections (SPA) ─────────────────────────────── */
-.page { display: none; }
-.page.active { display: block; }
-
+/* ── Page animation ──────────────────────────────────── */
 @keyframes pageIn {
   from { opacity: 0; transform: translateY(22px); }
   to   { opacity: 1; transform: translateY(0); }
 }
-.page.page-in {
+.content.page-in {
   animation: pageIn 0.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
@@ -255,11 +252,13 @@ li { margin: 0.3rem 0; }
 
 /* ── Images ──────────────────────────────────────────── */
 figure { margin: 1rem 0 1.5rem; }
-figure img {
+figure img,
+.content img {
   max-width: 100%;
   border-radius: 10px;
   border: 1px solid var(--border);
   display: block;
+  margin: 1rem 0 1.5rem;
 }
 
 /* ── Tables ──────────────────────────────────────────── */
@@ -421,7 +420,24 @@ td { padding: 0.6rem 1rem; vertical-align: top; }
     0 3px 6px rgba(0, 0, 0, 0.3);
 }
 
+/* ── Blockquotes (tip/info callouts from markdown) ───── */
+blockquote {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--link);
+  border-radius: 0 10px 10px 0;
+  padding: 0.9rem 1.1rem;
+  margin: 0.75rem 0 1rem;
+  color: var(--text);
+}
+blockquote p { margin-bottom: 0.3rem; }
+blockquote p:last-child { margin-bottom: 0; }
+blockquote strong { color: var(--text-bright); }
+blockquote ol, blockquote ul { padding-left: 1.3rem; }
+blockquote li { margin: 0.2rem 0; }
+
 /* ── Divider ─────────────────────────────────────────── */
+hr,
 .section-divider { border: none; border-top: 1px solid var(--border); margin: 2.25rem 0; }
 
 /* ── Mobile toggle ───────────────────────────────────── */

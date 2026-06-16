@@ -1,92 +1,124 @@
 (function () {
-  const sidebar   = document.getElementById('sidebar');
-  const overlay   = document.getElementById('overlay');
-  const toggle    = document.getElementById('navToggle');
-  const mainEl    = document.getElementById('mainContent');
+  var sidebar   = document.getElementById('sidebar');
+  var overlay   = document.getElementById('overlay');
+  var toggle    = document.getElementById('navToggle');
+  var navEl     = document.getElementById('sidebarNav');
+  var mainEl    = document.getElementById('mainContent');
+  var contentEl = document.getElementById('pageContent');
 
-  const PAGE_TITLES = {
-    home:      'Home — Bhascraft Docs',
-    survival:  'Survival — Bhascraft Docs',
-    creative:  'Creative — Bhascraft Docs',
-    skyblock:  'Skyblock — Bhascraft Docs',
-    pvp:       'PVP — Bhascraft Docs',
-    commands:  'Commands — Bhascraft Docs',
-    technical: 'Technical Info — Bhascraft Docs',
-  };
+  var pages = [];  // [{file, id, title}]
+  var cache = {};  // id → rendered html
+
+  /* ── marked.js config ────────────────────────────────── */
+  marked.use({ gfm: true, breaks: false });
 
   /* ── Mobile sidebar ──────────────────────────────────── */
   function openSidebar()  { sidebar.classList.add('open');    overlay.classList.add('show'); }
   function closeSidebar() { sidebar.classList.remove('open'); overlay.classList.remove('show'); }
 
-  toggle?.addEventListener('click', function () {
+  if (toggle) toggle.addEventListener('click', function () {
     sidebar.classList.contains('open') ? closeSidebar() : openSidebar();
   });
   overlay.addEventListener('click', closeSidebar);
 
-  /* ── Page routing ────────────────────────────────────── */
-  function navigate(pageId) {
-    if (!PAGE_TITLES[pageId]) pageId = 'home';
+  /* ── Helpers ─────────────────────────────────────────── */
+  function extractTitle(md) {
+    var m = md.match(/^#\s+(.+)/m);
+    return m ? m[1].trim() : null;
+  }
 
-    document.querySelectorAll('.page').forEach(function (p) {
-      p.classList.remove('active', 'page-in');
-    });
-    document.querySelectorAll('.sidebar-nav a').forEach(function (a) {
-      a.classList.remove('active');
+  function titleToId(title) {
+    return title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+  }
+
+  /* ── Show content ────────────────────────────────────── */
+  function showContent(html) {
+    contentEl.classList.remove('page-in');
+    contentEl.innerHTML = html;
+
+    contentEl.querySelectorAll('a[href^="http"]').forEach(function (a) {
+      if (!a.target) a.target = '_blank';
+      if (!a.rel)    a.rel    = 'noopener';
     });
 
-    var page = document.querySelector('.page[data-page="' + pageId + '"]');
-    if (page) {
-      page.classList.add('active');
-      // Double rAF so display:block paints before the animation class is added
-      requestAnimationFrame(function () {
-        requestAnimationFrame(function () {
-          page.classList.add('page-in');
-        });
+    contentEl.querySelectorAll('table').forEach(function (t) {
+      if (!t.closest('.table-wrap')) {
+        var wrap = document.createElement('div');
+        wrap.className = 'table-wrap';
+        t.parentNode.insertBefore(wrap, t);
+        wrap.appendChild(t);
+      }
+    });
+
+    mainEl.scrollTop = 0;
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () { contentEl.classList.add('page-in'); });
+    });
+  }
+
+  /* ── Navigate ────────────────────────────────────────── */
+  function navigate(id) {
+    var page = pages.find(function (p) { return p.id === id; });
+    if (!page && pages.length) page = pages[0];
+    if (!page) return;
+
+    navEl.querySelectorAll('a').forEach(function (a) {
+      a.classList.toggle('active', a.dataset.page === page.id);
+    });
+    document.title = page.title + ' — Bhascraft Docs';
+    showContent(cache[page.id] || '');
+  }
+
+  function handleRoute() { navigate(location.hash.slice(1)); }
+  window.addEventListener('hashchange', handleRoute);
+
+  /* ── Build nav after all pages are discovered ─────────── */
+  function boot() {
+    pages.forEach(function (page) {
+      var a = document.createElement('a');
+      a.href = '#' + page.id;
+      a.dataset.page = page.id;
+      a.textContent = page.title;
+      a.addEventListener('click', function () {
+        if (window.innerWidth <= 768) closeSidebar();
       });
-      mainEl.scrollTop = 0;
+      navEl.appendChild(a);
+    });
+
+    if (document.documentElement.classList.contains('first-load')) {
+      var links = navEl.querySelectorAll('a');
+      var done  = 0;
+      links.forEach(function (a) {
+        a.addEventListener('animationend', function () {
+          if (++done === links.length) {
+            document.documentElement.classList.remove('first-load');
+          }
+        }, { once: true });
+      });
     }
 
-    var link = document.querySelector('.sidebar-nav a[data-page="' + pageId + '"]');
-    if (link) link.classList.add('active');
-
-    document.title = PAGE_TITLES[pageId];
+    handleRoute();
   }
 
-  function handleRoute() {
-    navigate(location.hash.slice(1) || 'home');
+  /* ── Sequential probe ────────────────────────────────── */
+  // Fetches pages/1.md, pages/2.md, ... stopping at the first 404.
+  // Title and route ID come from the # heading inside each file.
+  // Content is cached during discovery so all navigation is instant.
+  function probe(i) {
+    fetch('pages/' + i + '.md')
+      .then(function (r) {
+        if (!r.ok) { boot(); return; }
+        return r.text().then(function (md) {
+          var title = extractTitle(md) || 'Page ' + i;
+          var id    = titleToId(title);
+          cache[id] = marked.parse(md);
+          pages.push({ file: i + '.md', id: id, title: title });
+          probe(i + 1);
+        });
+      })
+      .catch(function () { boot(); });
   }
 
-  window.addEventListener('hashchange', handleRoute);
-  handleRoute();
+  probe(1);
 
-  /* ── Gamemode card links also navigate ───────────────── */
-  document.querySelectorAll('.gm-card[data-page]').forEach(function (card) {
-    card.addEventListener('click', function (e) {
-      e.preventDefault();
-      var target = card.getAttribute('data-page');
-      history.pushState(null, '', '#' + target);
-      navigate(target);
-    });
-  });
-
-  /* ── Close mobile sidebar on nav link click ──────────── */
-  document.querySelectorAll('.sidebar-nav a').forEach(function (a) {
-    a.addEventListener('click', function () {
-      if (window.innerWidth <= 768) closeSidebar();
-    });
-  });
-
-  /* ── Remove first-load class after all nav animations ── */
-  if (document.documentElement.classList.contains('first-load')) {
-    var navLinks = document.querySelectorAll('.sidebar-nav a');
-    var done = 0;
-    navLinks.forEach(function (a) {
-      a.addEventListener('animationend', function () {
-        done++;
-        if (done === navLinks.length) {
-          document.documentElement.classList.remove('first-load');
-        }
-      }, { once: true });
-    });
-  }
 })();
