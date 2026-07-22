@@ -1,0 +1,23 @@
+{
+  "bg":           "#0c0a16",
+  "sidebar-bg":   "#100d1f",
+  "surface":      "#1c1633",
+  "surface-2":    "#241e3d",
+  "border":       "#302a52",
+  "text":         "#c4bedd",
+  "text-bright":  "#ece9f8",
+  "text-muted":   "#7b6fa0",
+  "accent":       "#f95a08",
+  "accent-dim":   "#c44a06",
+  "link":         "#b89dff",
+  "link-hover":   "#d4c4ff",
+  "code-bg":      "#0f0c1e",
+  "code-text":    "#f5c177",
+  "table-head":   "#150f28",
+  "nav-btn":      "#302a52",
+  "nav-btn-active": "#3d2a5c",
+  "shadow-dark":  "rgba(0, 0, 0, 0.65)",
+  "shadow-spread":"rgba(0, 0, 0, 0.30)",
+  "glow-light":   "rgba(255, 255, 255, 0.10)",
+  "glow-outline": "rgba(255, 255, 255, 0.07)"
+}

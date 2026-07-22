@@ -1,0 +1,22 @@
+{
+  "site": {
+    "name": "Bhascraft Docs",
+    "logo": "Bhascraft.svg",
+    "homeLink": "../index.html",
+    "navLabel": "Navigation"
+  },
+  "theme": "ocean",
+  "fonts": {
+    "body": "Inter",
+    "heading": "Press Start 2P",
+    "mono": "JetBrains Mono"
+  },
+  "sidebar": {
+    "width": "260px"
+  },
+  "buttons": {
+    "radius": "12px",
+    "hoverLift": "3px",
+    "depth": "3px"
+  }
+}

@@ -60,11 +60,59 @@
     transform: translateX(-50%);
     z-index: 1;
     width: min(580px, 78vw);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
     opacity: 0;
     animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.1s forwards;
   }
   .logo img { width: 100%; height: auto; display: block; }
+
+  /* ── Server status ──────────────────────────────────── */
+  .server-status {
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #fff;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.02em;
+    opacity: 0.9;
+    white-space: nowrap;
+    text-shadow:
+      0 0 6px rgba(255, 255, 255, 0.55),
+      0 0 14px rgba(255, 255, 255, 0.3);
+  }
+
+  .status-sep {
+    opacity: 0.5;
+  }
+
+  .status-dot {
+    width: 8px;
+    height: 8px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: #e74c3c;
+    box-shadow: 0 0 6px 1px rgba(231, 76, 60, 0.7);
+    animation: statusPulse 1.6s ease-in-out infinite;
+  }
+
+  .server-status.online .status-dot {
+    background: #3ddc59;
+    box-shadow: 0 0 6px 1px rgba(61, 220, 89, 0.7);
+  }
+
+  @keyframes statusPulse {
+    0%, 100% { opacity: 1;   transform: scale(1); }
+    50%      { opacity: 0.4; transform: scale(0.8); }
+  }
+
+  @media (max-width: 600px) {
+    .server-status { font-size: 0.45rem; gap: 8px; }
+  }
 
   /* ── Buttons ────────────────────────────────────────── */
   .buttons {
@@ -227,6 +275,12 @@
 
   <div class="logo">
     <img src="Bhascraft.svg" alt="Bhascraft">
+    <div class="server-status" id="serverStatus">
+      <span class="status-dot"></span>
+      <span id="statusText">Checking status…</span>
+      <span class="status-sep">|</span>
+      <span id="statusPlayers"></span>
+    </div>
   </div>
 
   <div class="toast" id="toast">
@@ -345,6 +399,31 @@
       resetTimer = setTimeout(function () { swapLabel('Play', false, false); }, 3000);
     });
   });
+
+  /* ── Server status ─────────────────────────────────── */
+  (function () {
+    var statusEl  = document.getElementById('serverStatus');
+    var textEl    = document.getElementById('statusText');
+    var playersEl = document.getElementById('statusPlayers');
+
+    function showOffline() {
+      statusEl.classList.remove('online');
+      textEl.textContent = 'Offline';
+      playersEl.textContent = '';
+    }
+
+    fetch('https://api.mcstatus.io/v2/status/java/' + SERVER_IP)
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        if (!data.online) { showOffline(); return; }
+        statusEl.classList.add('online');
+        textEl.textContent = 'Online';
+        var online = data.players ? data.players.online : 0;
+        var max    = data.players ? data.players.max    : '?';
+        playersEl.textContent = 'Players: ' + online + '/' + max;
+      })
+      .catch(showOffline);
+  })();
 </script>
 
 </body>
