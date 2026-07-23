@@ -3,15 +3,49 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bhascraft</title>
+<title>BhasCraft - Survival, Creative, SkyBlock & PVP Minecraft Server | Java & Bedrock</title>
+<meta name="description" content="Join BhasCraft, a Minecraft server with Survival, Creative plots, SkyBlock islands, and a PVP arena. Cross-play on Java & Bedrock Edition. IP: 51.148.188.225">
+<link rel="canonical" href="https://bhascraft.github.io/">
+
+<meta property="og:title" content="BhasCraft Minecraft Server">
+<meta property="og:description" content="Survival, Creative, SkyBlock & PVP — join BhasCraft on Java or Bedrock Edition at 51.148.188.225.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://bhascraft.github.io/">
+<meta property="og:image" content="https://bhascraft.github.io/Bhascraft.svg">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "BhasCraft Minecraft Server",
+  "url": "https://bhascraft.github.io/",
+  "description": "BhasCraft is a Minecraft server featuring Survival, Creative plots, SkyBlock islands, and a PVP arena, with cross-play support for Java and Bedrock Edition."
+}
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-  html, body { width: 100%; height: 100%; overflow: hidden; }
+  html { scroll-behavior: smooth; }
+  html, body { width: 100%; overflow-x: hidden; }
 
-  body { font-family: 'Press Start 2P', monospace; }
+  /* Visually hidden but readable by search engines & screen readers */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  body { font-family: 'Press Start 2P', monospace; background: #12101f; }
 
   /* ── Background ─────────────────────────────────────── */
   .hero {
@@ -266,12 +300,247 @@
     color: #6ee77a;
     letter-spacing: 0.04em;
   }
+
+  /* ── Scroll cue ─────────────────────────────────────── */
+  .scroll-cue {
+    position: absolute;
+    bottom: 3%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+    color: rgba(255, 255, 255, 0.65);
+    background: none;
+    border: none;
+    padding: 0;
+    appearance: none;
+    font: inherit;
+    text-decoration: none;
+    font-size: 1.4rem;
+    cursor: pointer;
+    animation: bounce 2s ease-in-out infinite;
+  }
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50%      { transform: translateX(-50%) translateY(8px); }
+  }
+
+  /* ── Content sections (below the hero) ───────────────── */
+  .site-content {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    color: #d8d4e6;
+    /* .hero is `position: relative`, which paints above ordinary in-flow content
+       per stacking rules — without this, the hero-bg image's parallax overscan
+       (inset: -6%, so it extends past the hero's own box) shows through over the
+       top of this section as the mouse moves it around. Being positioned too (and
+       later in the DOM) puts this section back on top, and the explicit background
+       makes sure it's actually opaque, not just correctly stacked. */
+    position: relative;
+    background: #12101f;
+  }
+
+  .content-section {
+    padding: 5rem 1.5rem;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .content-section.alt-bg {
+    max-width: none;
+    background: #181530;
+  }
+  .content-section.alt-bg > * {
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .site-content h2 {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 1.4rem;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 0.75rem;
+  }
+
+  .site-content h2::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background: #f95a08;
+    margin: 1rem auto 0;
+    border-radius: 2px;
+  }
+
+  .section-intro {
+    text-align: center;
+    max-width: 640px;
+    margin: 1.25rem auto 3rem;
+    color: #a9a3c2;
+    line-height: 1.7;
+  }
+
+  .site-content h3 {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.8rem;
+    color: #f95a08;
+    margin-bottom: 0.75rem;
+  }
+
+  .site-content p, .site-content li {
+    line-height: 1.75;
+    font-size: 0.98rem;
+  }
+
+  .site-content a { color: #f95a08; }
+
+  /* Gamemode list — stacked rows, no card boxes, divided by a faint line */
+  .gamemode-list {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2.5rem;
+  }
+
+  .gamemode-item {
+    padding: 1.5rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+  }
+  .gamemode-item:last-child {
+    border-bottom: none;
+  }
+
+  .feature-list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 0.9rem;
+  }
+
+  .feature-list li {
+    background: #1e1a38;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    padding: 0.9rem 1.1rem;
+  }
+
+  .feature-list strong { color: #fff; }
+
+  /* How to Join */
+  .join-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .site-content ol, .site-content ul.plain {
+    padding-left: 1.2rem;
+  }
+
+  .ip-box {
+    background: #1e1a38;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.9rem 1.5rem;
+    justify-content: center;
+  }
+
+  .ip-box .ip-line { display: flex; align-items: center; gap: 0.6rem; }
+
+  .ip-box code {
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    background: rgba(255, 255, 255, 0.08);
+    padding: 0.3rem 0.6rem;
+    border-radius: 6px;
+    color: #6ee77a;
+  }
+
+  .ip-copy-btn {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.6rem;
+    background: #302A52;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 0.55rem 0.9rem;
+    cursor: pointer;
+  }
+  .ip-copy-btn:hover { background: #3d2a5c; }
+
+  /* Rules table */
+  .rules-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+  }
+  .rules-table th, .rules-table td {
+    padding: 0.85rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .rules-table th {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.6rem;
+    color: #a9a3c2;
+    text-transform: uppercase;
+  }
+  .rules-allowed  { color: #6ee77a; }
+  .rules-disallowed { color: #ef6a6a; }
+
+  /* FAQ */
+  .faq-item {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 1.4rem 0;
+  }
+  .faq-item:last-child { border-bottom: none; }
+
+  @media (max-width: 600px) {
+    .content-section { padding: 3.5rem 1.25rem; }
+    .site-content h2 { font-size: 1.05rem; }
+  }
+
+  /* ── Scroll reveals ───────────────────────────────────── */
+  .reveal, .reveal-up {
+    opacity: 0;
+    transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .reveal:nth-child(odd)  { transform: translateX(-50px); }
+  .reveal:nth-child(even) { transform: translateX(50px); }
+  .reveal-up { transform: translateY(30px); }
+
+  .reveal.reveal-visible,
+  .reveal-up.reveal-visible {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+
+  .reveal:nth-child(1) { transition-delay: 0s; }
+  .reveal:nth-child(2) { transition-delay: 0.08s; }
+  .reveal:nth-child(3) { transition-delay: 0.16s; }
+  .reveal:nth-child(4) { transition-delay: 0.24s; }
+  .reveal:nth-child(5) { transition-delay: 0.32s; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal, .reveal-up {
+      transition: none;
+      opacity: 1;
+      transform: none;
+    }
+  }
 </style>
 </head>
 <body>
 
 <div class="hero">
   <div class="hero-bg"></div>
+
+  <h1 class="sr-only">BhasCraft Minecraft Server — Survival, Creative, SkyBlock &amp; PVP</h1>
 
   <div class="logo">
     <img src="Bhascraft.svg" alt="Bhascraft">
@@ -299,9 +568,147 @@
       Docs
     </a>
   </div>
+
+  <button type="button" class="scroll-cue" id="scrollCue" aria-label="Scroll down for more">&#8595;</button>
 </div>
 
+<main class="site-content">
+
+  <section id="features" class="content-section">
+    <h2>Server Features</h2>
+    <p class="section-intro reveal-up">Four gamemodes joined by a shared Hub, cross-play with Bedrock, and a playtime-based rank system.</p>
+
+    <div class="gamemode-list">
+      <div class="gamemode-item reveal">
+        <h3>Survival</h3>
+        <p>An open, mostly rules-free world with a 6,000-block border. Griefing, stealing, and PVP are all allowed.</p>
+      </div>
+      <div class="gamemode-item reveal">
+        <h3>Creative</h3>
+        <p>Claim a 100×100 plot with <code>/plot auto</code> and build freely with WorldEdit tools.</p>
+      </div>
+      <div class="gamemode-item reveal">
+        <h3>SkyBlock</h3>
+        <p>Pick a starting island and build outward, solo or with a team via island invites and co-op.</p>
+      </div>
+      <div class="gamemode-item reveal">
+        <h3>PVP Arena</h3>
+        <p>A free-for-all arena with kits earned by standing under particle dispensers at spawn.</p>
+      </div>
+    </div>
+
+    <ul class="feature-list">
+      <li class="reveal"><strong>Rank Progression</strong> — 5 playtime-based ranks (Beginner → Legend) unlock new commands as you play, up to 300 hours.</li>
+      <li class="reveal"><strong>Cross-Play</strong> — Java Edition natively, plus Bedrock Edition (mobile, console, Windows) via Geyser.</li>
+      <li class="reveal"><strong>Proximity Voice Chat</strong> — Talk to nearby players with the Simple Voice Chat mod.</li>
+      <li class="reveal"><strong>Central Hub</strong> — A shared lobby connects every gamemode and the leaderboard.</li>
+    </ul>
+  </section>
+
+  <section id="how-to-join" class="content-section alt-bg">
+    <h2>How to Join</h2>
+    <p class="section-intro reveal-up"><span id="versionText">Checking current version…</span></p>
+
+    <div class="join-grid">
+      <div class="reveal">
+        <h3>Java Edition</h3>
+        <ol>
+          <li>Open Minecraft and go to <strong>Multiplayer</strong>.</li>
+          <li>Select <strong>Add Server</strong>.</li>
+          <li>Enter <code>51.148.188.225</code> as the server address.</li>
+        </ol>
+      </div>
+      <div class="reveal">
+        <h3>Bedrock (PC / Mobile)</h3>
+        <ol>
+          <li>Go to the <strong>Servers</strong> tab and press <strong>Add Server +</strong>.</li>
+          <li>Server address: <code>51.148.188.225</code></li>
+          <li>Port: <code>19132</code></li>
+        </ol>
+      </div>
+      <div class="reveal">
+        <h3>Consoles (Switch / Xbox / PlayStation)</h3>
+        <p>Connecting from a console needs a DNS redirect through BedrockConnect — see the <a href="wiki/index.html">docs</a> for full step-by-step instructions.</p>
+      </div>
+    </div>
+
+    <div class="ip-box reveal-up">
+      <div class="ip-line"><span>Java IP:</span> <code>51.148.188.225</code></div>
+      <div class="ip-line"><span>Bedrock Port:</span> <code>19132</code></div>
+      <button class="ip-copy-btn" id="copyIpBtn">Copy IP</button>
+    </div>
+  </section>
+
+  <section id="rules" class="content-section">
+    <h2>Server Rules</h2>
+    <p class="section-intro reveal-up">Survival's rules — Creative, SkyBlock, and the PVP arena have their own protections (plots, islands, and a safe spawn zone).</p>
+
+    <table class="rules-table reveal-up">
+      <thead>
+        <tr><th>Rule</th><th>Status</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Griefing, stealing, and PVP</td><td class="rules-allowed">Allowed</td></tr>
+        <tr><td>X-ray (an anti-X-ray plugin reduces its effectiveness)</td><td class="rules-allowed">Allowed</td></tr>
+        <tr><td>Hack clients, mods, and AFK spoofers</td><td class="rules-disallowed">Not Allowed</td></tr>
+      </tbody>
+    </table>
+    <p class="reveal-up">An AFK system also stops playtime (and rank progress) from counting after 30 seconds of inactivity, to prevent leaderboard farming.</p>
+  </section>
+
+  <section id="faq" class="content-section alt-bg">
+    <h2>Frequently Asked Questions</h2>
+
+    <div class="faq-list">
+      <div class="faq-item reveal">
+        <h3>Does BhasCraft support cross-play?</h3>
+        <p>Yes. Java Edition connects directly; Bedrock Edition (mobile, console, and Windows) connects through the Geyser plugin. See the "How to Join" section above for console-specific steps.</p>
+      </div>
+      <div class="faq-item reveal">
+        <h3>Do I need to install any mods?</h3>
+        <p>No mods are required to play. Installing the Simple Voice Chat mod is optional, and only needed if you want proximity voice chat.</p>
+      </div>
+      <div class="faq-item reveal">
+        <h3>Is there a land claiming system?</h3>
+        <p>Not in Survival, where griefing is allowed — but Creative uses protected 100×100 plots, and SkyBlock islands are protected and ownable by teams.</p>
+      </div>
+      <div class="faq-item reveal">
+        <h3>How do ranks work?</h3>
+        <p>Ranks unlock automatically based on total playtime — Beginner (0h), Master (25h), Veteran (50h), Champion (150h), and Legend (300h) — each unlocking additional commands.</p>
+      </div>
+      <div class="faq-item reveal">
+        <h3>Is there an economy?</h3>
+        <p>Not currently — Survival has no economy system in place.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
 <script>
+  /* ── Always start at the top ──────────────────────────
+     Browsers restore the previous scroll position on reload by default,
+     which makes the page seem to "load scrolled down" if you'd previously
+     scrolled into the content sections. Force it back to the top on a
+     plain reload (but not when following a #anchor link). */
+  if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+  }
+  if (!location.hash) {
+    window.scrollTo(0, 0);
+  }
+
+  /* ── Scroll cue ───────────────────────────────────────
+     Scrolls to the content on click without touching the URL — a #hash would
+     make the "start at the top" fix above skip itself on the next reload. */
+  var scrollCue = document.getElementById('scrollCue');
+  if (scrollCue) {
+    scrollCue.addEventListener('click', function () {
+      var features = document.getElementById('features');
+      if (features) features.scrollIntoView({ behavior: 'smooth' });
+    });
+  }
+
   /* ── Parallax ──────────────────────────────────────── */
   const heroBg = document.querySelector('.hero-bg');
   const logo   = document.querySelector('.logo');
@@ -402,9 +809,10 @@
 
   /* ── Server status ─────────────────────────────────── */
   (function () {
-    var statusEl  = document.getElementById('serverStatus');
-    var textEl    = document.getElementById('statusText');
-    var playersEl = document.getElementById('statusPlayers');
+    var statusEl   = document.getElementById('serverStatus');
+    var textEl     = document.getElementById('statusText');
+    var playersEl  = document.getElementById('statusPlayers');
+    var versionEl  = document.getElementById('versionText');
 
     function showOffline() {
       statusEl.classList.remove('online');
@@ -421,8 +829,47 @@
         var online = data.players ? data.players.online : 0;
         var max    = data.players ? data.players.max    : '?';
         playersEl.textContent = 'Players: ' + online + '/' + max;
+        var versionName = data.version && (data.version.name_clean || data.version);
+        if (versionEl && versionName) {
+          versionEl.textContent = 'Currently running ' + versionName;
+        }
       })
       .catch(showOffline);
+  })();
+
+  /* ── Copy IP (How to Join section) ───────────────────── */
+  (function () {
+    var copyBtn = document.getElementById('copyIpBtn');
+    if (!copyBtn) return;
+    var defaultLabel = copyBtn.textContent;
+    copyBtn.addEventListener('click', function () {
+      navigator.clipboard.writeText(SERVER_IP).then(function () {
+        copyBtn.textContent = 'Copied!';
+        setTimeout(function () { copyBtn.textContent = defaultLabel; }, 1500);
+      });
+    });
+  })();
+
+  /* ── Scroll reveals ──────────────────────────────────── */
+  (function () {
+    var items = document.querySelectorAll('.reveal, .reveal-up');
+    if (!items.length) return;
+
+    if (!('IntersectionObserver' in window)) {
+      items.forEach(function (el) { el.classList.add('reveal-visible'); });
+      return;
+    }
+
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('reveal-visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+
+    items.forEach(function (el) { io.observe(el); });
   })();
 </script>
 
