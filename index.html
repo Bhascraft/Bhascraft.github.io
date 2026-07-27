@@ -52,6 +52,13 @@
     position: relative;
     width: 100vw;
     height: 100vh;
+    /* Mobile browsers count the address bar / toolbar space in 100vh, even
+       though that space isn't actually visible on load — so the hero (and
+       the scroll-cue pinned near its bottom) extends below the real fold.
+       100svh ("small viewport height") is sized to the guaranteed-visible
+       area with browser chrome shown, so the whole hero always fits.
+       Kept 100vh above as a fallback for browsers that don't support svh. */
+    height: 100svh;
     display: flex;
     flex-direction: column;
     align-items: center;
