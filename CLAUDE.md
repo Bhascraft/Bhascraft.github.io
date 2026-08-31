@@ -7,8 +7,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 A static, no-build website for **Bhascraft**, a Minecraft server. It's plain HTML/CSS/vanilla JS with no package manager, bundler, or test suite — there is nothing to install or compile. Preview changes by opening the HTML files directly in a browser or serving the directory with any static file server (e.g. `python3 -m http.server`).
 
 The site has two parts:
-- `index.html` (repo root) — the landing page: parallax hero, logo, and a "Play" button that copies the server IP (`51.148.188.225`) to the clipboard.
+- `index.html` (repo root) — the landing page. A single file with inline `<style>`/`<script>` (no separate CSS/JS files): a parallax hero (mouse-driven background/logo drift, `Backround.webp`) with a "Play" button that copies the server IP to the clipboard, followed by in-page content sections (features, how-to-join, rules, FAQ) that fade in via `IntersectionObserver` on scroll. The hero also polls `https://api.mcstatus.io/v2/status/java/<ip>` client-side on load to show live online/offline status, player count, and version.
 - `wiki/` — the docs site, linked from the landing page's "Docs" button.
+
+`index.html` also carries the site's SEO surface: Open Graph tags and a JSON-LD `WebSite` block inline, plus `robots.txt`, `sitemap.xml`, and `googled1300c26405faf30.html` (Google Search Console verification) at the repo root. Keep `sitemap.xml`'s `lastmod` dates and the OG/JSON-LD copy in sync with real content changes.
 
 ## Architecture: the `wiki/` docs system
 
@@ -40,5 +42,6 @@ The docs site is a single-page app (`wiki/index.html`) that renders Markdown pag
 
 ## Content notes
 
-- Server IP (`51.148.188.225`) and Bedrock port (`19132`) are duplicated in the landing page script (`index.html`) and in `wiki/pages/1.md` — update both if the server address changes.
+- Server IP (`51.148.188.225`) and Bedrock port (`19132`) are duplicated across `index.html` (parallax hero copy button, "How to Join" section, and the `mcstatus.io` status-check URL) and `wiki/pages/1.md` — update all if the server address changes.
+- Rank names, thresholds, and unlocked commands (Beginner/Master/Veteran/Champion/Legend at 0/25/50/150/300 hours) are duplicated between the FAQ in `index.html` and the ranks table in `wiki/pages/1.md` — keep them in sync.
 - `Anytype_space/` is an unrelated Anytype app data export living in the repo root; it is not part of the site and should not be treated as source content.
