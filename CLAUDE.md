@@ -17,7 +17,7 @@ The site has two parts:
 The docs site is a single-page app (`wiki/index.html`) that renders Markdown pages client-side. There is no server-side routing or static site generator — everything happens in the browser at request time.
 
 **Page loading (`wiki/js/main.js`)**: On boot, `probe(1)` fetches `wiki/pages/1.md`, `2.md`, `3.md`, … sequentially via `fetch`, stopping at the first missing file. This means:
-- Pages are added by creating the next sequential numbered file in `wiki/pages/` (currently `1.md` through `7.md`) — there's no manifest/index file to update.
+- Pages are added by creating the next sequential numbered file in `wiki/pages/` (currently `1.md` through `10.md`) — there's no manifest/index file to update.
 - A page's nav title and URL slug are both derived from its content, not the filename: the first `# H1` heading in the Markdown becomes the page title, and the title is slugified (lowercased, non-alphanumeric → `-`) to become the routing id used in the URL hash (`#slug`) and nav links.
 - Renumbering or deleting a page file shifts every later page's fetch order but not its slug/identity, since identity comes from the heading text.
 - All page text is cached in memory (`cache` for rendered HTML, `rawCache` for plain text used by search) after the initial probe — there's no re-fetching per navigation.
