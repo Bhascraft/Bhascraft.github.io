@@ -204,11 +204,15 @@
 
   /* ── Boot ────────────────────────────────────────────────── */
   function boot() {
-    pages.forEach(function (page) {
+    pages.forEach(function (page, i) {
       var a          = document.createElement('a');
       a.href         = '#' + page.id;
       a.dataset.page = page.id;
       a.textContent  = page.title;
+      // Sets the first-load stagger delay per link so it scales with however
+      // many pages exist, rather than a fixed CSS nth-child list that silently
+      // stops staggering (snapping straight to opacity: 1) past its last entry.
+      a.style.animationDelay = (0.12 + i * 0.08) + 's';
       a.addEventListener('click', function () {
         if (window.innerWidth <= 768) closeSidebar();
       });

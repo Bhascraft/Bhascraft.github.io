@@ -282,7 +282,7 @@
 
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.2s ease, transform 0.2s ease;
+    transition: opacity 0.2s ease, transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
 
   .toast.show {
@@ -325,6 +325,198 @@
     0%, 100% { transform: translateX(-50%) translateY(0); }
     50%      { transform: translateX(-50%) translateY(8px); }
   }
+
+  /* ── Discord FAB ───────────────────────────────────────
+     Fixed to the bottom-left corner regardless of scroll position.
+     Hidden until revealed (5s timeout, first scroll, or first click on
+     any button) — pointer-events stay off until then so it can't be
+     clicked while invisible. */
+  .discord-fab {
+    position: fixed;
+    bottom: 1.75rem;
+    left: 1.75rem;
+    z-index: 90;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: #5865F2;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+
+    opacity: 0;
+    transform: translateY(16px) scale(0.7);
+    pointer-events: none;
+    box-shadow: 0 0 0 rgba(88, 101, 242, 0);
+    transition:
+      opacity 0.4s ease,
+      transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+      box-shadow 0.3s ease;
+  }
+
+  .discord-fab.show {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+    box-shadow:
+      0 0 16px 4px rgba(88, 101, 242, 0.55),
+      0 0 34px 10px rgba(88, 101, 242, 0.28);
+  }
+
+  .discord-fab:hover {
+    transform: translateY(-4px) scale(1.05);
+    box-shadow:
+      0 0 20px 6px rgba(88, 101, 242, 0.7),
+      0 0 40px 14px rgba(88, 101, 242, 0.35);
+  }
+
+  .discord-fab svg { width: 28px; height: 28px; fill: #fff; }
+
+  @media (max-width: 600px) {
+    .discord-fab { left: 1.1rem; bottom: 1.1rem; width: 50px; height: 50px; }
+    .discord-fab svg { width: 24px; height: 24px; }
+  }
+
+  /* ── Discord modal ──────────────────────────────────────
+     Centered dialog with a dimming backdrop. The card starts slightly
+     narrower and lower (same fade+slide the IP toast uses), then once
+     it settles into place its width springs out to full size — the
+     same bouncy width transition the Play button uses when its label
+     changes. Clicking the backdrop itself (not the card) closes it. */
+  .discord-modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(8, 6, 16, 0);
+    backdrop-filter: blur(0px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease, background 0.25s ease, backdrop-filter 0.25s ease;
+  }
+
+  .discord-modal-overlay.show {
+    opacity: 1;
+    pointer-events: auto;
+    background: rgba(8, 6, 16, 0.72);
+    backdrop-filter: blur(6px);
+  }
+
+  .discord-modal-card {
+    background: #181530;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    padding: 1.1rem;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.55);
+    overflow: hidden;
+
+    width: 150px;
+    max-width: calc(100vw - 2.5rem);
+    opacity: 0;
+    transform: translateY(140px);
+    transition:
+      opacity 0.3s ease,
+      transform 0.42s cubic-bezier(0.34, 1.9, 0.64, 1),
+      width 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) 0.28s;
+  }
+
+  .discord-modal-overlay.show .discord-modal-card {
+    opacity: 1;
+    transform: translateY(0);
+    width: 320px;
+  }
+
+  @media (max-width: 480px) {
+    .discord-modal-card { width: 120px; }
+    .discord-modal-overlay.show .discord-modal-card { width: 280px; }
+  }
+
+  /* ── Discord invite card ────────────────────────────────
+     A hand-built copy of Discord's own invite-link unfurl card
+     (icon overlapping a banner, name, live counts, join button),
+     since Discord doesn't offer that specific card as an embeddable
+     widget — only the full iframe widget. Counts/name/icon are filled
+     in from the public invite API at runtime; see the script below. */
+  .discord-invite {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background: #111214;
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .discord-invite-banner {
+    height: 64px;
+    background: linear-gradient(135deg, #f95a08, #ff9d4d);
+  }
+
+  .discord-invite-icon {
+    display: block;
+    width: 60px;
+    height: 60px;
+    border-radius: 16px;
+    border: 4px solid #111214;
+    background: #111214 center / cover no-repeat;
+    margin: -30px auto 0;
+  }
+
+  .discord-invite-body {
+    padding: 0.6rem 1rem 1rem;
+    text-align: center;
+  }
+
+  .discord-invite-name {
+    font-weight: 700;
+    color: #fff;
+    font-size: 1rem;
+    margin-top: 0.35rem;
+  }
+
+  .discord-invite-stats {
+    display: flex;
+    justify-content: center;
+    gap: 0.9rem;
+    margin-top: 0.5rem;
+    font-size: 0.8rem;
+    color: #b5bac1;
+  }
+
+  .discord-invite-stat { display: flex; align-items: center; gap: 0.35rem; }
+
+  .discord-invite-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+    flex-shrink: 0;
+  }
+  .discord-invite-dot.online { background: #23a559; }
+  .discord-invite-dot.total  { background: #80848e; }
+
+  .discord-invite-est {
+    margin-top: 0.4rem;
+    font-size: 0.75rem;
+    color: #949ba4;
+  }
+
+  .discord-invite-btn {
+    display: block;
+    margin-top: 0.9rem;
+    background: #23a559;
+    color: #fff;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 0.6rem 1rem;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    transition: background 0.15s ease;
+  }
+  .discord-invite-btn:hover { background: #1e9150; }
 
   /* ── Content sections (below the hero) ───────────────── */
   .site-content {
@@ -662,6 +854,28 @@
 
 </main>
 
+<button class="discord-fab" id="discordFab" aria-label="Join our Discord" aria-haspopup="dialog">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-2.3054-.3448-4.6081-.3448-6.8949 0-.1636-.3928-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c1.9245 1.4148 3.7896 2.2733 5.6221 2.8354a.0777.0777 0 00.0842-.0276c.4336-.5926.8194-1.2172 1.1508-1.8744a.076.076 0 00-.0416-.1057c-.6104-.2313-1.1915-.5297-1.7418-.8971a.0764.0764 0 01-.0076-.1268c.1173-.0881.2346-.1793.3462-.2717a.0763.0763 0 01.0797-.0107c3.9278 1.7933 8.1772 1.7933 12.0611 0a.076.076 0 01.0808.0089c.1116.0923.2289.1846.3462.2716a.0764.0764 0 01-.0067.1268 12.2986 12.2986 0 01-1.7423.8974.0767.0767 0 00-.0407.1064c.3374.6512.7231 1.2762 1.1509 1.8683a.076.076 0 00.0842.0286c1.8399-.5619 3.7047-1.4207 5.6297-2.8354a.0777.0777 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1568 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg>
+</button>
+
+<div class="discord-modal-overlay" id="discordOverlay" role="dialog" aria-modal="true" aria-label="BhasCraft Discord">
+  <div class="discord-modal-card">
+    <div class="discord-invite">
+      <div class="discord-invite-banner"></div>
+      <img class="discord-invite-icon" id="discordInviteIcon" alt="">
+      <div class="discord-invite-body">
+        <div class="discord-invite-name" id="discordInviteName">BhasCraft</div>
+        <div class="discord-invite-stats">
+          <span class="discord-invite-stat"><span class="discord-invite-dot online"></span><span id="discordInviteOnline">…</span></span>
+          <span class="discord-invite-stat"><span class="discord-invite-dot total"></span><span id="discordInviteMembers">…</span></span>
+        </div>
+        <div class="discord-invite-est" id="discordInviteEst"></div>
+        <a class="discord-invite-btn" id="discordInviteBtn" href="https://discord.com/invite/yckCndHX" target="_blank" rel="noopener">Join Server</a>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
   /* ── Always start at the top ──────────────────────────
      Browsers restore the previous scroll position on reload by default,
@@ -835,6 +1049,83 @@
         setTimeout(function () { copyBtn.textContent = defaultLabel; }, 1500);
       });
     });
+  })();
+
+  /* ── Discord FAB + modal ──────────────────────────────── */
+  (function () {
+    var fab     = document.getElementById('discordFab');
+    var overlay = document.getElementById('discordOverlay');
+    if (!fab || !overlay) return;
+
+    var revealed = false;
+    function reveal() {
+      if (revealed) return;
+      revealed = true;
+      fab.classList.add('show');
+    }
+    setTimeout(reveal, 5000);
+    window.addEventListener('scroll', reveal, { once: true, passive: true });
+    document.addEventListener('click', function (e) {
+      if (!revealed && e.target.closest('button, .btn')) reveal();
+    });
+
+    function openModal()  { overlay.classList.add('show'); }
+    function closeModal() { overlay.classList.remove('show'); }
+
+    // The overlay covers the whole viewport (including the FAB) while open,
+    // so there's no "click the FAB again" path to reach here — closing is
+    // handled entirely by the backdrop click below and Escape.
+    fab.addEventListener('click', openModal);
+
+    // Only close on clicks that land on the backdrop itself, not the card.
+    overlay.addEventListener('click', function (e) {
+      if (e.target === overlay) closeModal();
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') closeModal();
+    });
+  })();
+
+  /* ── Discord invite card ───────────────────────────────
+     Pulls live name/icon/counts from Discord's public invite API
+     (no auth needed for a public invite) so the numbers don't go
+     stale like a hardcoded card would. */
+  (function () {
+    var INVITE_CODE = 'yckCndHX';
+    var iconEl    = document.getElementById('discordInviteIcon');
+    var nameEl    = document.getElementById('discordInviteName');
+    var onlineEl  = document.getElementById('discordInviteOnline');
+    var membersEl = document.getElementById('discordInviteMembers');
+    var estEl     = document.getElementById('discordInviteEst');
+    if (!iconEl) return;
+
+    // Discord snowflake IDs encode their creation time in the top bits.
+    function snowflakeDate(id) {
+      var ms = Number((BigInt(id) >> 22n) + 1420070400000n);
+      return new Date(ms);
+    }
+
+    fetch('https://discord.com/api/v10/invites/' + INVITE_CODE + '?with_counts=true')
+      .then(function (r) { return r.ok ? r.json() : Promise.reject(); })
+      .then(function (data) {
+        var guild = data.guild || {};
+        nameEl.textContent = guild.name || 'BhasCraft';
+        iconEl.src = guild.icon
+          ? 'https://cdn.discordapp.com/icons/' + guild.id + '/' + guild.icon + '.png?size=128'
+          : 'favicon.png';
+        onlineEl.textContent = (data.approximate_presence_count != null ? data.approximate_presence_count : '?') + ' Online';
+        membersEl.textContent = (data.approximate_member_count != null ? data.approximate_member_count : '?') + ' Members';
+        if (guild.id) {
+          estEl.textContent = 'Est. ' + snowflakeDate(guild.id).toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+        }
+      })
+      .catch(function () {
+        iconEl.src = 'favicon.png';
+        onlineEl.textContent = '';
+        membersEl.textContent = '';
+        estEl.textContent = '';
+      });
   })();
 
   /* ── Scroll reveals ──────────────────────────────────── */

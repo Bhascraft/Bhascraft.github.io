@@ -99,6 +99,7 @@ body {
   letter-spacing: 0.1em;
   color: var(--text-muted);
   padding: 1rem 1.2rem 0.4rem;
+  flex-shrink: 0;
 }
 
 .sidebar-nav {
@@ -112,6 +113,13 @@ body {
   overflow: hidden;
   max-height: 800px;
   opacity: 1;
+  /* Without this, a fixed-height flex column (like .sidebar) shrinks this
+     child to fit remaining space by default once total content overflows —
+     silently clipping nav links (via the overflow: hidden above) before
+     .sidebar's own overflow-y: auto ever gets a chance to scroll them into
+     view. Keeping this at its natural content height instead lets the
+     overflow correctly bubble up to .sidebar, which does the scrolling. */
+  flex-shrink: 0;
   transition: max-height 0.3s ease, opacity 0.22s ease;
 }
 
@@ -194,17 +202,13 @@ body {
   to   { opacity: 1; transform: translateY(0); }
 }
 
+/* Per-link animation-delay is set inline by main.js's boot(), so the
+   stagger scales with however many pages exist instead of stopping at a
+   fixed nth-child count. */
 html.first-load .sidebar-nav a {
   opacity: 0;
   animation: navBtnIn 0.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
-html.first-load .sidebar-nav a:nth-child(1) { animation-delay: 0.12s; }
-html.first-load .sidebar-nav a:nth-child(2) { animation-delay: 0.20s; }
-html.first-load .sidebar-nav a:nth-child(3) { animation-delay: 0.28s; }
-html.first-load .sidebar-nav a:nth-child(4) { animation-delay: 0.36s; }
-html.first-load .sidebar-nav a:nth-child(5) { animation-delay: 0.44s; }
-html.first-load .sidebar-nav a:nth-child(6) { animation-delay: 0.52s; }
-html.first-load .sidebar-nav a:nth-child(7) { animation-delay: 0.60s; }
 
 /* ── Typography ──────────────────────────────────────── */
 h1 {
@@ -457,6 +461,7 @@ hr,
   display: flex;
   align-items: center;
   padding: 0.75rem 0.6rem 0.35rem;
+  flex-shrink: 0;
 }
 
 .search-icon {
@@ -525,6 +530,7 @@ hr,
   flex-direction: column;
   padding: 0 0.6rem;
   overflow-x: hidden;
+  flex-shrink: 0;
 }
 
 /* ── Result cards ────────────────────────────────────────── */
